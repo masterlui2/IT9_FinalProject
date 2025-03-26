@@ -1,0 +1,28 @@
+body {
+    background-image: url("/images/bg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.card {
+    border: none;
+    border-radius: 50px;
+    overflow: hidden;
+    display: flex;
+    width: 620px;
+}
+.custom-btn {
+    background-color: rgb(123, 63, 0);
+    color: white;
+    border: none;
+}
+
+.custom-btn:hover {
+    background-color: rgb(180, 100, 30);
+}
+
+.logo {
+    width: 250px;
+    margin-right: 30px;
+    height: auto;
+}
