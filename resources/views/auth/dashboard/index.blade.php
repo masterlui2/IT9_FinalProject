@@ -9,6 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     {{-- Font Awesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <style>
     body {
@@ -81,9 +83,7 @@
             <button class="nav-button" onclick="loadContent('resident')">
                 <i class="fa-solid fa-circle-user me-2"></i> Resident Info
             </button>
-            <button class="nav-button" onclick="loadContent('household')">
-                <i class="fa-solid fa-house me-2"></i> Household Data
-            </button>
+         
             <button class="nav-button" onclick="loadContent('documents')">
                 <i class="fa-solid fa-file-invoice me-2"></i> Documents
             </button>

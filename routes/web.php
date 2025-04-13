@@ -7,7 +7,6 @@ use App\Http\Controllers\DashboardController;
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'processLogin'])->name('login.process');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
 // Dashboard routes
 Route::middleware(['web'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -19,7 +18,7 @@ Route::middleware(['web'])->group(function () {
     Route::get('/dashboard/permits', [DashboardController::class, 'permits'])->name('business.permits');
     Route::get('/dashboard/incidents', [DashboardController::class, 'incidents'])->name('incident.logs');
     Route::get('/dashboard/view/{section}', [DashboardController::class, 'view']);
-    Route::get('/dashboard/view/{section}', [DashboardController::class, 'loadSection']);
+    
 
     // AJAX-loaded dashboard sections
     Route::get('/dashboard/view/{section}', [DashboardController::class, 'loadSection']);
