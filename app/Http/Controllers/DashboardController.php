@@ -11,7 +11,7 @@ class DashboardController extends Controller
     }
 
     public function residents() {
-        return view('auth.dashboard.resident');
+        return view('auth.dashboard.residents');
     }
 
     public function households() {

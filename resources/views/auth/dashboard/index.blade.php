@@ -80,7 +80,7 @@
             <button class="nav-button" onclick="loadContent('dashboard_content')">
                 <i class="fa-solid fa-chart-simple me-2"></i> Dashboard
             </button>
-            <button class="nav-button" onclick="loadContent('resident')">
+            <button class="nav-button" onclick="loadContent('residents')">
                 <i class="fa-solid fa-circle-user me-2"></i> Resident Info
             </button>
          
