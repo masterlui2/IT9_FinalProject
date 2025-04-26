@@ -12,7 +12,11 @@ Route::get('/test-resident', function() {
         'message' => 'API is working'
     ]);
 });
-
+Route::get('/households/{household}/heads', function ($householdId) {
+    return \App\Models\Resident::where('household_id', $householdId)
+        ->where('relationship', 'Head')
+        ->get(['id', 'full_name']);
+});
 // Consolidated Resident Routes
 Route::prefix('residents')->group(function () {
     Route::get('/', [ResidentController::class, 'index']);
@@ -20,6 +24,8 @@ Route::prefix('residents')->group(function () {
     Route::post('/', [ResidentController::class, 'store'])->name('residents.store');
     Route::put('/{id}', [ResidentController::class, 'update'])->name('residents.update');
     Route::delete('/{id}', [ResidentController::class, 'destroy']);
+    // In routes/api.php
+Route::get('/residents/{resident}', [ResidentController::class, 'show']);
 });
 
 // Auth routes

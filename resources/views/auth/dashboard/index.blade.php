@@ -19,7 +19,6 @@
         background-color: rgb(255, 255, 255);
         font-family: sans-serif;
         overflow-x: hidden; /* ✅ Hides horizontal scroll */
-        overflow-y: hidden; /* ✅ Hides horizontal scroll */
 
     }
 

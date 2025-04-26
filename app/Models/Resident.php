@@ -16,7 +16,8 @@ class Resident extends Model
         'household_id',
         'relationship',
         'income_source',
-        'contact'
+        'contact',
+        'household_head_name'
     ];
     
     protected $casts = [

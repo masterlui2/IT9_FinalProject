@@ -108,56 +108,61 @@
                     </div>
 
                     <!-- Household Information Column -->
-                    <div class="col-lg-7">
-                        <div class="card h-100">
-                            <div class="card-header bg-light d-flex justify-content-between align-items-center">
-                                <h5 class="m-0">
-                                    <i class="bi bi-house-door me-2"></i> Household Information
-                                </h5>
-                                <button class="btn btn-sm btn-success" id="addMemberBtn">
-                                    <i class="bi bi-person-plus me-1"></i> Add Member
-                                </button>
-                            </div>
-                            <div class="card-body">
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label text-muted small mb-1">Household ID</label>
-                                        <div id="detail-household-id">Loading...</div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label text-muted small mb-1">Household Head</label>
-                                        <div id="detail-head">Loading...</div>
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label class="form-label text-muted small mb-1">Address</label>
-                                    <div id="detail-address">Loading...</div>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label class="form-label text-muted small mb-1">Household Members (<span id="member-count">0</span>)</label>
-                                    <div class="table-responsive">
-                                        <table class="table table-sm table-hover">
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th>Name</th>
-                                                    <th>Relationship</th>
-                                                    <th>Age</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="detail-members">
-                                                <tr>
-                                                    <td colspan="4" class="text-center">Loading members...</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                  <!-- Inside the residentDetailsModal - Household Information Column -->
+<div class="col-lg-7">
+    <div class="card h-100">
+        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+            <h5 class="m-0">
+                <i class="bi bi-house-door me-2"></i> Household Information
+            </h5>
+            <button class="btn btn-sm btn-success" id="addMemberBtn">
+                <i class="bi bi-person-plus me-1"></i> Add Member
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label text-muted small mb-1">Household ID</label>
+                    <div id="detail-household-id">Loading...</div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label text-muted small mb-1">Household Head</label>
+                    <div id="detail-household-head" class="fw-bold">
+                        <!-- This will show either the head's name or "Not Specified" -->
+                        Loading...
                     </div>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label text-muted small mb-1">Address</label>
+                <div id="detail-address">Loading...</div>
+            </div>
+            
+            <!-- Rest of your household members table remains the same -->
+            <div class="mb-3">
+                <label class="form-label text-muted small mb-1">Household Members (<span id="member-count">0</span>)</label>
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Name</th>
+                                <th>Relationship</th>
+                                <th>Age</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detail-members">
+                            <tr>
+                                <td colspan="4" class="text-center">Loading members...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -209,36 +214,41 @@
                                 </div>
                             </div>
 
-                            <!-- Right Column -->
-                            <div class="col-md-6">
-                                <h6 class="border-bottom pb-2 mb-3">Household Information</h6>
-                                <div class="mb-3">
-                                    <label for="household" class="form-label">Household <span class="text-danger">*</span></label>
-                                    <select class="form-select" id="household" required>
-                                        <option value="" disabled selected>Select Household</option>
-                                        <option value="1">Household #1 - Purok 1</option>
-                                        <option value="2">Household #2 - Purok 2</option>
-                                        <option value="3">Household #3 - Purok 3</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="relationship" class="form-label">Relationship to Head <span class="text-danger">*</span></label>
-                                    <select class="form-select" id="relationship" required>
-                                        <option value="" disabled selected>Select relationship</option>
-                                        <option>Head</option>
-                                        <option>Spouse</option>
-                                        <option>Child</option>
-                                        <option>Parent</option>
-                                        <option>Sibling</option>
-                                        <option>Other Relative</option>
-                                        <option>Non-relative</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="income" class="form-label">Source of Income</label>
-                                    <input type="text" class="form-control" id="income" placeholder="Occupation or income source">
-                                </div>
-                            </div>
+                    <!-- Right Column -->
+<!-- Inside the "Household Information" section (Right Column) -->
+<div class="col-md-6">
+    <h6 class="border-bottom pb-2 mb-3">Household Information</h6>
+    <div class="mb-3">
+        <label for="household" class="form-label">Household <span class="text-danger">*</span></label>
+        <select class="form-select" id="household" required>
+            <option value="" disabled selected>Select Household</option>
+            <option value="1">Household #1 - Purok 1</option>
+            <option value="2">Household #2 - Purok 2</option>
+            <option value="3">Household #3 - Purok 3</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="household_head_name" class="form-label">Household Head Name <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" id="household_head_name" required placeholder="Enter household head's full name">
+    </div>
+    <div class="mb-3">
+        <label for="relationship" class="form-label">Relationship to Head <span class="text-danger">*</span></label>
+        <select class="form-select" id="relationship" required>
+            <option value="" disabled selected>Select relationship</option>
+            <option>Head</option>
+            <option>Spouse</option>
+            <option>Child</option>
+            <option>Parent</option>
+            <option>Sibling</option>
+            <option>Other Relative</option>
+            <option>Non-relative</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="income" class="form-label">Source of Income</label>
+        <input type="text" class="form-control" id="income" placeholder="Occupation or income source">
+    </div>
+</div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -257,249 +267,4 @@
 
 <script>
     
-    document.addEventListener("DOMContentLoaded", function () {
-        bindDeleteButtons();
-    document.querySelectorAll(".delete-resident").forEach(button => {
-        button.addEventListener("click", function (e) {
-            e.stopPropagation(); // 🔒 Prevent triggering the row click event
-            const residentId = this.getAttribute("data-id");
-
-            if (confirm("Are you sure you want to delete this resident?")) {
-                fetch(`/residents/${residentId}`, {
-                    method: "DELETE",
-                    headers: {
-                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-                    }
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success) {
-                        alert("Resident deleted successfully!");
-                        location.reload(); // optional: you can also just remove the row from DOM
-                    } else {
-                        alert("Failed to delete resident.");
-                    }
-                });
-            }
-        });
-    });
-});
-
-
-    // Handle resident form submission
-    document.getElementById("residentForm").addEventListener("submit", async function (e) {
-        e.preventDefault();
-        
-        const submitBtn = this.querySelector('button[type="submit"]');
-        const originalBtnText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="bi bi-arrow-repeat spinner"></i> Saving...';
-        submitBtn.disabled = true;
-
-        try {
-            const formData = {
-                full_name: document.getElementById("fullName").value,
-                gender: document.getElementById("gender").value,
-                birthdate: document.getElementById("birthdate").value,
-                household_id: document.getElementById("household").value,
-                relationship: document.getElementById("relationship").value,
-                income_source: document.getElementById("income").value,
-                contact: document.getElementById("contact").value,
-                _token: document.querySelector('meta[name="csrf-token"]').content
-            };
-
-            const response = await fetch('/residents', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'X-CSRF-TOKEN': formData._token
-                },
-                body: JSON.stringify(formData)
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.message || 'Failed to save resident');
-            }
-
-            // Format birthdate to YYYY-MM-DD only
-            const formattedBirthdate = data.birthdate.split('T')[0];
-
-       // Add the new resident to the table
-const newRow = `
-    <tr class="clickable-row" data-resident-id="${data.id}">
-        <td>${data.id}</td>
-        <td><strong>${data.full_name}</strong></td>
-        <td>${data.gender}</td>
-        <td>${formattedBirthdate}</td>
-        <td>Household #${data.household_id}</td>
-        <td>${data.income_source || '-'}</td>
-        <td>${data.contact || '-'}</td>
-        <td>
-            <button class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i></button>
-            <button class="btn btn-sm btn-danger delete-resident" data-id="${data.id}"><i class="bi bi-trash-fill"></i></button>
-        </td>
-    </tr>
-`;
-
-            
-            document.querySelector("table tbody").insertAdjacentHTML('afterbegin', newRow);
-
-            // Close the modal and reset form
-            bootstrap.Modal.getInstance(document.getElementById("addResidentModal")).hide();
-            this.reset();
-            
-            // Remove modal backdrop if it remains
-            document.body.classList.remove('modal-open');
-            const backdrop = document.querySelector('.modal-backdrop');
-            if (backdrop) backdrop.remove();
-
-            showAlert('Resident added successfully!', 'success');
-            
-        } catch (error) {
-            console.error('Error:', error);
-            showAlert(error.message || 'Error saving resident', 'danger');
-        } finally {
-            submitBtn.innerHTML = originalBtnText;
-            submitBtn.disabled = false;
-        }
-    });
-
-    document.querySelectorAll(".clickable-row").forEach(row => {
-    row.addEventListener("click", function (e) {
-        // Ignore clicks inside buttons
-        if (e.target.closest(".btn")) return;
-
-        const residentId = this.getAttribute("data-resident-id");
-
-        // Load and show resident details via AJAX
-        loadResidentDetails(residentId);
-
-        // Manually trigger the modal
-        const modal = new bootstrap.Modal(document.getElementById("residentDetailsModal"));
-        modal.show();
-    });
-});
-
-
-        // Add Member button click handler
-        document.getElementById('addMemberBtn')?.addEventListener('click', function() {
-            const householdId = document.getElementById('detail-household-id')?.textContent;
-            if (householdId) {
-                const householdSelect = document.getElementById('household');
-                householdSelect.value = householdId;
-                householdSelect.disabled = true;
-                
-                const detailsModal = bootstrap.Modal.getInstance(document.getElementById('residentDetailsModal'));
-                detailsModal.hide();
-                
-                const addModal = new bootstrap.Modal(document.getElementById('addResidentModal'));
-                addModal.show();
-            } else {
-                showAlert('Please select a household first', 'warning');
-            }
-        });
-
-    // Function to load actual resident details
-    async function loadResidentDetails(residentId) {
-        console.log('Fetching resident:', residentId); // Debug log
-        
-        // Show loading state
-        document.getElementById('detail-name').textContent = 'Loading...';
-        document.getElementById('detail-gender').textContent = 'Loading...';
-        document.getElementById('detail-birthdate').textContent = 'Loading...';
-        document.getElementById('detail-contact').textContent = 'Loading...';
-        document.getElementById('detail-income').textContent = 'Loading...';
-        document.getElementById('detail-household-id').textContent = 'Loading...';
-        document.getElementById('detail-address').textContent = 'Loading...';
-        document.getElementById('detail-head').textContent = 'Loading...';
-        document.getElementById('member-count').textContent = '0';
-        document.getElementById('detail-members').innerHTML = '<tr><td colspan="4" class="text-center">Loading members...</td></tr>';
-
-        try {
-            const response = await fetch(`/residents/${residentId}`);
-            console.log('Response status:', response.status); // Debug log
-            
-            if (!response.ok) {
-                throw new Error('Failed to fetch resident data');
-            }
-
-            const residentData = await response.json();
-            console.log('Received data:', residentData); // Debug log
-
-            // Format birthdate to remove time portion
-            const formattedBirthdate = residentData.birthdate.split('T')[0];
-
-            // Update resident info
-            document.getElementById('detail-name').textContent = residentData.full_name;
-            document.getElementById('detail-gender').textContent = residentData.gender;
-            document.getElementById('detail-birthdate').textContent = formattedBirthdate;
-            document.getElementById('detail-contact').textContent = residentData.contact || '-';
-            document.getElementById('detail-income').textContent = residentData.income_source || '-';
-            
-            // Update household info if available
-            if (residentData.household) {
-                document.getElementById('detail-household-id').textContent = residentData.household.id;
-                document.getElementById('detail-address').textContent = 
-                    `${residentData.household.purok || ''}, ${residentData.household.barangay || ''}, ${residentData.household.city || ''}`.replace(/^, /, '');
-                document.getElementById('detail-head').textContent = residentData.household.head_name || '-';
-                
-                // Update members table
-                const membersTable = document.getElementById('detail-members');
-                membersTable.innerHTML = '';
-                
-                if (residentData.household.members && residentData.household.members.length > 0) {
-                    residentData.household.members.forEach(member => {
-                        const row = document.createElement('tr');
-                        if (member.id == residentId) {
-                            row.classList.add('table-active');
-                        }
-                        
-                        let badgeClass = 'bg-secondary';
-                        if (member.relationship === 'Head') badgeClass = 'bg-primary';
-                        else if (member.relationship === 'Spouse') badgeClass = 'bg-info';
-                        
-                        row.innerHTML = `
-                            <td>${member.full_name}</td>
-                            <td><span class="badge ${badgeClass}">${member.relationship}</span></td>
-                            <td>${member.age || '-'}</td>
-                            <td><span class="badge bg-success">Active</span></td>
-                        `;
-                        membersTable.appendChild(row);
-                    });
-                    document.getElementById('member-count').textContent = residentData.household.members.length;
-                } else {
-                    membersTable.innerHTML = '<tr><td colspan="4" class="text-center">No members found</td></tr>';
-                }
-            }
-        } catch (error) {
-            console.error('Error loading resident details:', error);
-            showAlert('Failed to load resident details', 'danger');
-            
-            document.getElementById('detail-name').textContent = 'Error loading data';
-            document.getElementById('detail-members').innerHTML = '<tr><td colspan="4" class="text-center text-danger">Failed to load members</td></tr>';
-        }
-    }
-
-    // Helper function to show alerts
-    function showAlert(message, type) {
-        const existingAlert = document.querySelector('.alert');
-        if (existingAlert) existingAlert.remove();
-
-        const alertDiv = document.createElement('div');
-        alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3`;
-        alertDiv.style.zIndex = '1060';
-        alertDiv.role = 'alert';
-        alertDiv.innerHTML = `
-            ${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        `;
-        
-        document.body.appendChild(alertDiv);
-        
-        setTimeout(() => {
-            alertDiv.remove();
-        }, 5000);
-    }
 </script>
