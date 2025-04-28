@@ -13,8 +13,9 @@ class Household extends Model
         'head_name'
     ];
 
-    public function members()
-    {
-        return $this->hasMany(Resident::class);
-    }
+   // In Household.php
+public function members()
+{
+    return $this->hasMany(Resident::class);
+}
 }

@@ -17,6 +17,7 @@ Route::get('/households/{household}/heads', function ($householdId) {
         ->where('relationship', 'Head')
         ->get(['id', 'full_name']);
 });
+Route::get('/api/residents/{resident}', [ResidentController::class, 'show']);
 // Consolidated Resident Routes
 Route::prefix('residents')->group(function () {
     Route::get('/', [ResidentController::class, 'index']);
@@ -26,6 +27,8 @@ Route::prefix('residents')->group(function () {
     Route::delete('/{id}', [ResidentController::class, 'destroy']);
     // In routes/api.php
 Route::get('/residents/{resident}', [ResidentController::class, 'show']);
+// routes/web.php
+Route::get('/residents/{id}', [ResidentController::class, 'show']);
 });
 
 // Auth routes
