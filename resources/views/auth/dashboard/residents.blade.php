@@ -404,7 +404,6 @@ document
     });
 
 // Row click handler
-// Replace your existing row click handler with this improved version
 document.addEventListener("click", function (e) {
     // Handle clickable rows (using event delegation for dynamically added rows)
     const row = e.target.closest(".clickable-row");
@@ -511,8 +510,8 @@ async function loadResidentDetails(residentId) {
         if (data.household) {
             document.getElementById("detail-household-id").textContent =
                 data.household.id || "N/A";
-            document.getElementById("detail-household-head").textContent =
-                data.household.head_name || "Not Specified";
+                document.getElementById("detail-household-head").textContent =
+                data.household_head_name || data.household?.head_name || "Not Specified";
 
             // Address
             const addressParts = [

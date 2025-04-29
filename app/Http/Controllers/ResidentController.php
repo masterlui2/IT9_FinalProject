@@ -69,6 +69,7 @@ class ResidentController extends Controller
                 'birthdate' => $resident->birthdate,
                 'contact' => $resident->contact,
                 'income_source' => $resident->income_source,
+                'household_head_name' => $resident->household_head_name, // Add this line
                 'household' => $resident->household ? [
                     'id' => $resident->household->id,
                     'head_name' => $resident->household->head_name,

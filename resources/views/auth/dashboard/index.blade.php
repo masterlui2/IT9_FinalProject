@@ -24,8 +24,8 @@
 
     .sidebar {
         background-color: #c82333;
-        width: 280px;
-        height: 100vh;
+        width: 280px!important;
+        height: 100vh!important;
         position: fixed;
         left: 0;
         top: 0;
@@ -85,9 +85,6 @@
                 <i class="fa-solid fa-circle-user me-2"></i> Resident Info
             </button>
          
-            <button class="nav-button" onclick="loadContent('documents')">
-                <i class="fa-solid fa-file-invoice me-2"></i> Documents
-            </button>
             <button class="nav-button" onclick="loadContent('permits')">
                 <i class="fa-solid fa-briefcase me-2"></i> Permits
             </button>
