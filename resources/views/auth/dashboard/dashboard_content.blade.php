@@ -1,120 +1,478 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <!-- resources/views/auth/dashboard/dashboard_content.blade.php -->
-
-<div class="container-fluid py-4">
-    <div class="row mb-4">
+<div class="container-fluid py-4 dashboard-container">
+    <div class="row mb-3">
         <div class="col">
-            <h2 class="fw-bold">Barangay Resident Demographics</h2>
-            <p class="text-muted">Overview of the current population and household data</p>
+            <h4 class="fw-bold">Barangay Dashboard</h4>
+        </div>
+    </div>
+    <!-- Wide but short image section -->
+    <div class="row mt-4">
+        <div class="col">
+            <img src="{{ asset('downloads/permits/image.png') }}" alt="Dashboard Banner" class="img-fluid custom-banner">
+        </div>
+    </div>
+    
+    <!-- Statistic Cards -->
+    <div class="row g-4 mt-3">  <!-- Added mt-3 class here for margin-top -->
+        <!-- Population -->
+        <div class="col-xl-3 col-md-6">
+            <div class="card stats-card card-hover-primary shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="text-muted text-uppercase fw-bold small">Statistics</div>
+                            <div class="stat-value text-primary">11,200</div>
+                            <div class="stat-change text-success">
+                                <i class="fas fa-arrow-up trend-icon"></i>
+                                <span>5% increase</span>
+                            </div>
+                        </div>
+                        <div class="icon-circle">
+                            <i class="fas fa-chart-bar text-primary"></i>
+                        </div>
+                    </div>
+                    <div class="progress mt-4">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 75%"></div>
+                    </div>
+                    <div class="mini-chart">
+                        <div class="chart-bar" style="height: 50%"></div>
+                        <div class="chart-bar" style="height: 65%"></div>
+                        <div class="chart-bar" style="height: 75%"></div>
+                        <div class="chart-bar" style="height: 60%"></div>
+                        <div class="chart-bar" style="height: 70%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Residential -->
+        <div class="col-xl-3 col-md-6">
+            <div class="card stats-card card-hover-success shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="text-muted text-uppercase fw-bold small">Residential</div>
+                            <div class="stat-value text-success">2,240</div>
+                            <div class="stat-change text-success">
+                                <i class="fas fa-arrow-up trend-icon"></i>
+                                <span>7% increase</span>
+                            </div>
+                        </div>
+                        <div class="icon-circle">
+                            <i class="fas fa-house-user text-success"></i>
+                        </div>
+                    </div>
+                    <div class="progress mt-4">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 85%"></div>
+                    </div>
+                    <div class="mini-chart">
+                        <div class="chart-bar" style="height: 60%"></div>
+                        <div class="chart-bar" style="height: 75%"></div>
+                        <div class="chart-bar" style="height: 85%"></div>
+                        <div class="chart-bar" style="height: 80%"></div>
+                        <div class="chart-bar" style="height: 70%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Commercial -->
+        <div class="col-xl-3 col-md-6">
+            <div class="card stats-card card-hover-info shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="text-muted text-uppercase fw-bold small">Commercial</div>
+                            <div class="stat-value text-info">3,424</div>
+                            <div class="stat-change text-success">
+                                <i class="fas fa-arrow-up trend-icon"></i>
+                                <span>3% increase</span>
+                            </div>
+                        </div>
+                        <div class="icon-circle">
+                            <i class="fas fa-store text-info"></i>
+                        </div>
+                    </div>
+                    <div class="progress mt-4">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: 65%"></div>
+                    </div>
+                    <div class="mini-chart">
+                        <div class="chart-bar" style="height: 45%"></div>
+                        <div class="chart-bar" style="height: 55%"></div>
+                        <div class="chart-bar" style="height: 65%"></div>
+                        <div class="chart-bar" style="height: 50%"></div>
+                        <div class="chart-bar" style="height: 60%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Helpdesk -->
+        <div class="col-xl-3 col-md-6">
+            <div class="card stats-card card-hover-warning shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="text-muted text-uppercase fw-bold small">Helpdesk</div>
+                            <div class="stat-value text-warning">97</div>
+                            <div class="stat-change text-success">
+                                <i class="fas fa-arrow-up trend-icon"></i>
+                                <span>2% increase</span>
+                            </div>
+                        </div>
+                        <div class="icon-circle">
+                            <i class="fas fa-headset text-warning"></i>
+                        </div>
+                    </div>
+                    <div class="progress mt-4">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: 55%"></div>
+                    </div>
+                    <div class="mini-chart">
+                        <div class="chart-bar" style="height: 35%"></div>
+                        <div class="chart-bar" style="height: 45%"></div>
+                        <div class="chart-bar" style="height: 55%"></div>
+                        <div class="chart-bar" style="height: 40%"></div>
+                        <div class="chart-bar" style="height: 50%"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Stat Cards -->
-    <div class="row g-4">
+    <!-- Donut Charts -->
+    <div class="row g-4 mt-4">
+        <!-- Population Chart -->
         <div class="col-md-3">
-            <div class="card text-white bg-primary shadow">
-                <div class="card-body">
-                    <h5 class="card-title">Total Residents</h5>
-                    <h2 class="card-text">1,234</h2> <!-- Replace with dynamic data -->
+            <div class="card shadow-sm border-0 p-3">
+                <div class="text-center">
+                    <p class="fw-bold mb-1">11,200</p>
+                    <small class="text-muted">Population</small>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-success shadow">
-                <div class="card-body">
-                    <h5 class="card-title">Male</h5>
-                    <h2 class="card-text">634</h2> <!-- Replace with dynamic data -->
+                <div class="d-flex justify-content-center mt-3">
+                    <div style="width: 120px; height: 120px;">
+                        <canvas id="chartPopulation"></canvas>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-danger shadow">
-                <div class="card-body">
-                    <h5 class="card-title">Female</h5>
-                    <h2 class="card-text">600</h2> <!-- Replace with dynamic data -->
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-dark shadow">
-                <div class="card-body">
-                    <h5 class="card-title">Households</h5>
-                    <h2 class="card-text">321</h2> <!-- Replace with dynamic data -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Chart Section -->
-    <div class="row mt-5">
-        <div class="col-md-6">
-            <div class="card shadow">
-                <div class="card-header bg-white fw-bold">
-                    Gender Distribution
-                </div>
-                <div class="card-body">
-                    <canvas id="genderChart"></canvas>
+                <div class="mt-3 text-center">
+                    <span class="d-block">58% Male</span>
+                    <span class="d-block">42% Female</span>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6">
-            <div class="card shadow">
-                <div class="card-header bg-white fw-bold">
-                    Age Group Breakdown
+        <!-- Residential Chart -->
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 p-3">
+                <div class="text-center">
+                    <p class="fw-bold mb-1">2,240</p>
+                    <small class="text-muted">Residential Areas</small>
                 </div>
-                <div class="card-body">
-                    <canvas id="ageChart"></canvas>
+                <div class="d-flex justify-content-center mt-3">
+                    <div style="width: 120px; height: 120px;">
+                        <canvas id="chartResidential"></canvas>
+                    </div>
+                </div>
+                <div class="mt-3 text-center">
+                    <span class="d-block">70% Occupied</span>
+                    <span class="d-block">30% Vacant</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Commercial Chart -->
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 p-3">
+                <div class="text-center">
+                    <p class="fw-bold mb-1">3,424</p>
+                    <small class="text-muted">Establishments</small>
+                </div>
+                <div class="d-flex justify-content-center mt-3">
+                    <div style="width: 120px; height: 120px;">
+                        <canvas id="chartCommercial"></canvas>
+                    </div>
+                </div>
+                <div class="mt-3 text-center">
+                    <span class="d-block">93% Active</span>
+                    <span class="d-block">7% Inactive</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tickets Chart -->
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 p-3">
+                <div class="text-center">
+                    <p class="fw-bold mb-1">97</p>
+                    <small class="text-muted">Total Tickets</small>
+                </div>
+                <div class="d-flex justify-content-center mt-3">
+                    <div style="width: 120px; height: 120px;">
+                        <canvas id="chartTickets"></canvas>
+                    </div>
+                </div>
+                <div class="mt-3 text-center">
+                    <span class="d-block">92% Closed</span>
+                    <span class="d-block">8% Open</span>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Chart.js Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    // Gender Distribution
-    const genderCtx = document.getElementById('genderChart').getContext('2d');
-    new Chart(genderCtx, {
-        type: 'pie',
-        data: {
-            labels: ['Male', 'Female'],
-            datasets: [{
-                data: [634, 600], // Replace with dynamic data
-                backgroundColor: ['#0d6efd', '#dc3545'],
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'bottom'
-                }
-            }
-        }
-    });
+<style>
+   .dashboard-container {
+        height: 100vh;
+        overflow-y: auto; /* Only vertical scrolling */
+        overflow-x: hidden; /* Prevent horizontal scrolling */
+        padding-right: 25px; /* Prevent content from touching scrollbar */
+    }
+    .row, .col, .card, .custom-banner {
+        max-width: 150%;
+        overflow-x: hidden;
+    }
+    .stats-card {
+        border: none;
+        border-radius: 15px;
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
 
-    // Age Group Breakdown
-    const ageCtx = document.getElementById('ageChart').getContext('2d');
-    new Chart(ageCtx, {
-        type: 'bar',
-        data: {
-            labels: ['0-17', '18-35', '36-59', '60+'],
-            datasets: [{
-                label: 'Number of Residents',
-                data: [300, 500, 280, 154], // Replace with dynamic data
-                backgroundColor: '#198754'
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+    .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, .1);
+    }
+
+    .card-hover-primary:hover {
+        background: linear-gradient(45deg, #4e73df, #224abe);
+    }
+
+    .card-hover-success:hover {
+        background: linear-gradient(45deg, #1cc88a, #169a6b);
+    }
+
+    .card-hover-info:hover {
+        background: linear-gradient(45deg, #36b9cc, #258391);
+    }
+
+    .card-hover-warning:hover {
+        background: linear-gradient(45deg, #f6c23e, #dda20a);
+    }
+
+    .stats-card:hover .text-primary,
+    .stats-card:hover .text-success,
+    .stats-card:hover .text-info,
+    .stats-card:hover .text-warning,
+    .stats-card:hover .text-muted,
+    .stats-card:hover .card-title {
+        color: white !important;
+    }
+
+    .icon-circle {
+        height: 60px;
+        width: 60px;
+        border-radius: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        background: rgba(0, 0, 0, .05);
+        transition: all 0.3s ease;
+    }
+
+    .stats-card:hover .icon-circle {
+        background: rgba(255, 255, 255, .2);
+    }
+
+    .stat-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 10px 0;
+    }
+
+    .progress {
+        height: 8px;
+        border-radius: 4px;
+        background: rgba(0, 0, 0, .05);
+    }
+
+    .progress-bar {
+        border-radius: 4px;
+    }
+
+    .stat-change {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.9rem;
+    }
+
+    .trend-icon {
+        font-size: 0.8rem;
+    }
+
+    .mini-chart {
+        height: 50px;
+        margin-top: 10px;
+        display: flex;
+        align-items: flex-end;
+        gap: 3px;
+    }
+
+    .chart-bar {
+        flex: 1;
+        background: rgba(0, 0, 0, .05);
+        border-radius: 3px 3px 0 0;
+        transition: all 0.3s ease;
+    }
+
+    .stats-card:hover .chart-bar {
+        background: rgba(255, 255, 255, .2);
+    }
+
+    /* Donut chart cards */
+    .card.shadow-sm {
+        border-radius: 15px;
+        transition: all 0.3s ease;
+    }
+
+    .card.shadow-sm:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, .1) !important;
+    }
+    
+    .custom-banner {
+        width: 100%;
+        max-height: 240px;
+        object-fit: cover;
+        border-radius: 10px;
+        object-position: 0 -20px;
+        margin-bottom: 15px; /* Added margin to separate from cards */
+    }
+</style>
+
+<script>
+    // Wait for DOM to be fully loaded before initializing charts
+    document.addEventListener('DOMContentLoaded', function() {
+        const donutConfig = (ctx, data, colors) => {
+            return new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        data: data.values,
+                        backgroundColor: colors,
+                        borderWidth: 0,
+                        cutout: '70%'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: true
+                        }
+                    }
                 }
-            },
-            plugins: {
-                legend: { display: false }
+            });
+        };
+
+        // Initialize all charts
+        const initCharts = () => {
+            // Population Chart
+            const populationCtx = document.getElementById('chartPopulation');
+            if (populationCtx) {
+                new Chart(populationCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Male', 'Female'],
+                        datasets: [{
+                            data: [58, 42],
+                            backgroundColor: ['#005eff', '#66b3ff'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        cutout: '70%',
+                        plugins: {
+                            legend: { display: false }
+                        }
+                    }
+                });
             }
-        }
+
+            // Residential Chart
+            const residentialCtx = document.getElementById('chartResidential');
+            if (residentialCtx) {
+                new Chart(residentialCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Occupied', 'Vacant'],
+                        datasets: [{
+                            data: [70, 30],
+                            backgroundColor: ['#059b9a', '#2ed5da'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        cutout: '70%',
+                        plugins: {
+                            legend: { display: false }
+                        }
+                    }
+                });
+            }
+
+            // Commercial Chart
+            const commercialCtx = document.getElementById('chartCommercial');
+            if (commercialCtx) {
+                new Chart(commercialCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Active', 'Inactive'],
+                        datasets: [{
+                            data: [93, 7],
+                            backgroundColor: ['#0074e8', '#7ac6f6'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        cutout: '70%',
+                        plugins: {
+                            legend: { display: false }
+                        }
+                    }
+                });
+            }
+
+            // Tickets Chart
+            const ticketsCtx = document.getElementById('chartTickets');
+            if (ticketsCtx) {
+                new Chart(ticketsCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Closed', 'Open'],
+                        datasets: [{
+                            data: [92, 8],
+                            backgroundColor: ['#e85c00', '#ffa84c'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        cutout: '70%',
+                        plugins: {
+                            legend: { display: false }
+                        }
+                    }
+                });
+            }
+        };
+
+        initCharts();
     });
 </script>

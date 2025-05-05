@@ -80,8 +80,7 @@ class ResidentController extends Controller
                         return [
                             'full_name' => $member->full_name,
                             'relationship' => $member->relationship,
-                            'age' => $member->age,
-                            'status' => $member->status
+                            'birthdate' => $member->birthdate, // Send birthdate instead of age
                         ];
                     })
                 ] : null

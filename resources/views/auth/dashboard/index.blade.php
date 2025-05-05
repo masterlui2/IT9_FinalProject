@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barangay Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-    {{-- Bootstrap --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    {{-- Font Awesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
@@ -19,6 +17,7 @@
         background-color: rgb(255, 255, 255);
         font-family: sans-serif;
         overflow-x: hidden; /* ✅ Hides horizontal scroll */
+        overflow-y: hidden!important;
 
     }
 
@@ -30,7 +29,13 @@
         left: 0;
         top: 0;
         padding: 0px 10px;
-        overflow-y: auto;
+        overflow-y: hidden!important;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar-content {
+        flex: 1;
     }
 
     .sidebar .logo {
@@ -67,6 +72,34 @@
         font-weight: bold;
         border: 2px solid #fff;
     }
+    
+    /* Logout button styling */
+    .logout-btn {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        margin: 15px 0;
+        border: none;
+        border-radius: 10px;
+        background-color:rgb(240, 117, 129);
+        color: white;
+        font-weight: 500;
+        transition: 0.3s;
+    }
+    
+    .logout-btn:hover {
+        background-color: #bb2d3b;
+    }
+    
+    /* Dashboard components horizontal scroll */
+    .dashboard-container {
+        overflow-x: auto;
+        width: 100%;
+    }
+    
+    .dashboard-components {
+        min-width: 1200px; /* Adjust as needed */
+    }
 </style>
 
 </head>
@@ -76,21 +109,32 @@
     <div class="row">
         {{-- Sidebar --}}
         <div class="text-center mb-4 col-md-3 col-lg-2 sidebar">
-            <img src="{{ asset('images/logo.png') }}" alt="Barangay Logo" class="logo img-fluid">
+            <div class="sidebar-content">
+                <img src="{{ asset('images/logo.png') }}" alt="Barangay Logo" class="logo img-fluid">
 
-            <button class="nav-button" onclick="loadContent('dashboard_content')">
-                <i class="fa-solid fa-chart-simple me-2"></i> Dashboard
-            </button>
-            <button class="nav-button" onclick="loadContent('residents')">
-                <i class="fa-solid fa-circle-user me-2"></i> Resident Info
-            </button>
-         
-            <button class="nav-button" onclick="loadContent('permits')">
-                <i class="fa-solid fa-briefcase me-2"></i> Permits
-            </button>
-            <button class="nav-button" onclick="loadContent('incidents')">
-                <i class="fa-solid fa-person-burst me-2"></i> Incidents
-            </button>
+                <button class="nav-button" onclick="loadContent('dashboard_content')">
+                    <i class="fa-solid fa-chart-simple me-2"></i> Dashboard
+                </button>
+                <button class="nav-button" onclick="loadContent('residents')">
+                    <i class="fa-solid fa-circle-user me-2"></i> Resident Info
+                </button>
+             
+                <button class="nav-button" onclick="loadContent('permits')">
+                    <i class="fa-solid fa-briefcase me-2"></i> Permits
+                </button>
+                <button class="nav-button" onclick="loadContent('incidents')">
+                    <i class="fa-solid fa-person-burst me-2"></i> Incidents
+                </button>
+            </div>
+            <!-- Add this form right before the logout button -->
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+</form>
+
+           <!-- Change your logout button to this -->
+<button class="logout-btn" data-bs-toggle="modal" data-bs-target="#logoutModal">
+  <i class="fa-solid fa-right-from-bracket me-2"></i> Logout
+</button>
         </div>
 
         {{-- Main content --}}
@@ -101,99 +145,102 @@
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    // 1. First define the chart rendering function
     function renderDashboardCharts() {
-        const genderCtx = document.getElementById('genderChart')?.getContext('2d');
-        const ageCtx = document.getElementById('ageChart')?.getContext('2d');
-
-        if (genderCtx) {
-            new Chart(genderCtx, {
-                type: 'pie',
+        const donutConfig = (ctx, data, colors) => {
+            return new Chart(ctx, {
+                type: 'doughnut',
                 data: {
-                    labels: ['Male', 'Female'],
+                    labels: data.labels,
                     datasets: [{
-                        data: [634, 600],
-                        backgroundColor: ['#0d6efd', '#dc3545'],
+                        data: data.values,
+                        backgroundColor: colors,
+                        cutout: '70%',
+                        borderWidth: 0
                     }]
                 },
                 options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }
-            });
-        }
-
-        if (ageCtx) {
-            new Chart(ageCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['0-17', '18-35', '36-59', '60+'],
-                    datasets: [{
-                        label: 'Number of Residents',
-                        data: [300, 500, 280, 154],
-                        backgroundColor: '#198754'
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: { enabled: true }
                     },
-                    plugins: {
-                        legend: { display: false }
-                    }
+                    responsive: true,
+                    maintainAspectRatio: false
                 }
             });
-        }
+        };
+
+        // Initialize charts
+        const initCharts = () => {
+            const charts = [
+                { id: 'chartPopulation', labels: ['Male', 'Female'], values: [58, 42], colors: ['#005eff', '#66b3ff'] },
+                { id: 'chartResidential', labels: ['Occupied', 'Vacant'], values: [70, 30], colors: ['#059b9a', '#2ed5da'] },
+                { id: 'chartCommercial', labels: ['Active', 'Inactive'], values: [93, 7], colors: ['#0074e8', '#7ac6f6'] },
+                { id: 'chartTickets', labels: ['Closed', 'Open'], values: [92, 8], colors: ['#e85c00', '#ffa84c'] }
+            ];
+
+            charts.forEach(chart => {
+                const ctx = document.getElementById(chart.id);
+                if (ctx) {
+                    // Destroy existing chart if it exists
+                    if (ctx.chart) ctx.chart.destroy();
+                    ctx.chart = donutConfig(ctx, chart, chart.colors);
+                }
+            });
+        };
+
+        // Small delay to ensure DOM is ready
+        setTimeout(initCharts, 100);
     }
 
+    // 2. Then define the content loading function
     function loadContent(section) {
-    $('#mainContent').html('<div class="text-center py-5">Loading...</div>');
+        // Show loading indicator
+        $('#mainContent').html('<div class="text-center py-5"><i class="fas fa-spinner fa-spin fa-3x"></i><p class="mt-3">Loading...</p></div>');
 
-    $.ajax({
-        url: `/dashboard/view/${section}`,
-        type: 'GET',
-        success: function (response) {
-            $('#mainContent').html(response);
-
-            // ✅ Render charts if dashboard is loaded
-            if (section === 'dashboard_content') {
-                renderDashboardCharts();
-            }
-
-            // ✅ Highlight the active nav button
-            $('.nav-button').removeClass('active');
-            $(`.nav-button[onclick="loadContent('${section}')"]`).addClass('active');
-        },
-        error: function (xhr) {
-            console.error("AJAX Load Error:", xhr);
-            $('#mainContent').html('<div class="alert alert-danger">Failed to load content.</div>');
-        }
-    });
-}
-
-    $(document).ready(function () {
-        // ✅ Load dashboard by default on first page load
-        loadContent('dashboard_content');
-
-        // ✅ Highlight Dashboard nav button by default
+        // Update active button immediately
         $('.nav-button').removeClass('active');
+        $(`.nav-button[onclick*="${section}"]`).addClass('active');
+
+        $.ajax({
+            url: `/dashboard/view/${section}`,
+            type: 'GET',
+            success: function(response) {
+                // Special handling for dashboard
+                if (section === 'dashboard_content') {
+                    response = `<div class="dashboard-container">${response}</div>`;
+                }
+                
+                $('#mainContent').html(response);
+                
+                // Render charts if dashboard
+                if (section === 'dashboard_content') {
+                    renderDashboardCharts();
+                }
+            },
+            error: function(xhr) {
+                console.error("Error:", xhr);
+                $('#mainContent').html(`
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Failed to load content. Please try again.
+                    </div>
+                `);
+            }
+        });
+    }
+
+    // 3. Initialize on page load
+    $(document).ready(function() {
+        // Load dashboard by default
+        loadContent('dashboard_content');
+        
+        // Set first button as active
         $('.nav-button').first().addClass('active');
     });
-</script>
-
-
-
-
-
-{{-- Bootstrap JS --}}
-<!-- Add before closing </body> -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </script>
 </body>
 </html>

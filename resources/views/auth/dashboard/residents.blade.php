@@ -84,15 +84,18 @@
                                 </div>
                                 
                                 <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label text-muted small mb-1">Gender</label>
-                                        <div id="detail-gender">Loading...</div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label text-muted small mb-1">Birthdate</label>
-                                        <div id="detail-birthdate">Loading...</div>
-                                    </div>
-                                </div>
+    <div class="col-md-6">
+        <label class="form-label text-muted small mb-1">Gender</label>
+        <div id="detail-gender">Loading...</div>
+    </div>
+    <div class="col-md-6">
+        <label class="form-label text-muted small mb-1">Birthdate & Age</label>
+        <div>
+            <span id="detail-birthdate">Loading...</span>
+            <span id="detail-age" class="ms-2 badge bg-primary"></span>
+        </div>
+    </div>
+</div>
                                 
                                 <div class="mb-3">
                                     <label class="form-label text-muted small mb-1">Contact</label>
@@ -149,7 +152,6 @@
                                 <th>Name</th>
                                 <th>Relationship</th>
                                 <th>Age</th>
-                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody id="detail-members">
@@ -174,93 +176,112 @@
     </div>
 </div>
 
-    <!-- Add Resident Modal (Landscape) -->
-    <div class="modal fade" id="addResidentModal" tabindex="-1" aria-labelledby="addResidentModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <form id="residentForm">
-                    <div class="modal-header bg-success text-white">
-                        <h5 class="modal-title" id="addResidentModalLabel">
-                            <i class="bi bi-person-plus-fill me-2"></i> Add New Resident
-                        </h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <!-- Left Column -->
-                            <div class="col-md-6">
-                                <h6 class="border-bottom pb-2 mb-3">Personal Information</h6>
-                                <div class="mb-3">
-                                    <label for="fullName" class="form-label">Full Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="fullName" required>
+   <!-- Add Resident Modal (Landscape) - Updated Version -->
+<div class="modal fade" id="addResidentModal" tabindex="-1" aria-labelledby="addResidentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="residentForm">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="addResidentModalLabel">
+                        <i class="bi bi-person-plus-fill me-2"></i> <span id="modalTitle">Add New Resident</span>
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <!-- Left Column (Personal Information - Always Editable) -->
+                        <div class="col-md-6">
+                            <h6 class="border-bottom pb-2 mb-3">Personal Information</h6>
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label">Full Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="fullName" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="gender" class="form-label">Gender <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="gender" required>
+                                        <option value="" disabled selected>Select</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                    </select>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="gender" class="form-label">Gender <span class="text-danger">*</span></label>
-                                        <select class="form-select" id="gender" required>
-                                            <option value="" disabled selected>Select</option>
-                                            <option>Male</option>
-                                            <option>Female</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="birthdate" class="form-label">Birthdate <span class="text-danger">*</span></label>
-                                        <input type="date" class="form-control" id="birthdate" required>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="contact" class="form-label">Contact Number</label>
-                                    <input type="text" class="form-control" id="contact" placeholder="09123456789">
+                                <div class="col-md-6 mb-3">
+                                    <label for="birthdate" class="form-label">Birthdate <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" id="birthdate" required>
                                 </div>
                             </div>
+                            <div class="mb-3">
+                                <label for="contact" class="form-label">Contact Number</label>
+                                <input type="text" class="form-control" id="contact" placeholder="09123456789">
+                            </div>
+                        </div>
 
-                    <!-- Right Column -->
-<!-- Inside the "Household Information" section (Right Column) -->
-<div class="col-md-6">
-    <h6 class="border-bottom pb-2 mb-3">Household Information</h6>
-    <div class="mb-3">
-        <label for="household" class="form-label">Household <span class="text-danger">*</span></label>
-        <select class="form-select" id="household" required>
-            <option value="" disabled selected>Select Household</option>
-            <option value="1">Household #1 - Purok 1</option>
-            <option value="2">Household #2 - Purok 2</option>
-            <option value="3">Household #3 - Purok 3</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label for="household_head_name" class="form-label">Household Head Name <span class="text-danger">*</span></label>
-        <input type="text" class="form-control" id="household_head_name" required placeholder="Enter household head's full name">
-    </div>
-    <div class="mb-3">
-        <label for="relationship" class="form-label">Relationship to Head <span class="text-danger">*</span></label>
-        <select class="form-select" id="relationship" required>
-            <option value="" disabled selected>Select relationship</option>
-            <option>Head</option>
-            <option>Spouse</option>
-            <option>Child</option>
-            <option>Parent</option>
-            <option>Sibling</option>
-            <option>Other Relative</option>
-            <option>Non-relative</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label for="income" class="form-label">Source of Income</label>
-        <input type="text" class="form-control" id="income" placeholder="Occupation or income source">
-    </div>
-</div>
+                        <!-- Right Column (Household Information - Dynamic) -->
+                        <div class="col-md-6">
+                            <h6 class="border-bottom pb-2 mb-3">Household Information</h6>
+                            
+                            <!-- Household Selection (Visible for New Resident) -->
+                            <div class="mb-3" id="householdSelectGroup">
+                                <label for="household" class="form-label">Household <span class="text-danger">*</span></label>
+                                <select class="form-select" id="household" required>
+                                    <option value="" disabled selected>Select Household</option>
+                                    <option value="1">Household #1 - Purok 1</option>
+                                    <option value="2">Household #2 - Purok 2</option>
+                                    <option value="3">Household #3 - Purok 3</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Household Display (Visible for Add Member) -->
+                            <div class="mb-3 d-none" id="householdDisplayGroup">
+                                <label class="form-label">Household</label>
+                                <div class="form-control bg-light" id="display-household" style="cursor: not-allowed;">
+                                    Loading household...
+                                </div>
+                                <input type="hidden" id="household-hidden">
+                            </div>
+                            
+                            <!-- Household Head Name (Visible for New Resident) -->
+                            <div class="mb-3" id="householdHeadInputGroup">
+                                <label for="household_head_name" class="form-label">Household Head Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="household_head_name" required placeholder="Enter household head's full name">
+                            </div>
+                            
+                            <!-- Household Head Display (Visible for Add Member) -->
+                            <div class="mb-3 d-none" id="householdHeadDisplayGroup">
+                                <label class="form-label">Household Head</label>
+                                <div class="form-control bg-light" id="display-household-head" style="cursor: not-allowed;">
+                                    Loading head information...
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="relationship" class="form-label">Relationship to Head <span class="text-danger">*</span></label>
+                                <select class="form-select" id="relationship" required>
+                                    <option value="" disabled selected>Select relationship</option>
+                                    <option>Spouse</option>
+                                    <option>Child</option>
+                                    <option>Parent</option>
+                                    <option>Sibling</option>
+                                    <option>Other Relative</option>
+                                    <option>Non-relative</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="income" class="form-label">Source of Income</label>
+                                <input type="text" class="form-control" id="income" placeholder="Occupation or income source">
+                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                            <i class="bi bi-x-circle me-1"></i> Cancel
-                        </button>
-                        <button type="submit" class="btn btn-success">
-                            <i class="bi bi-save-fill me-1"></i> Save Resident
-                        </button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-1"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-save-fill me-1"></i> Save Resident
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -497,9 +518,18 @@ async function loadResidentDetails(residentId) {
             data.full_name || "N/A";
         document.getElementById("detail-gender").textContent =
             data.gender || "N/A";
-        document.getElementById("detail-birthdate").textContent = data.birthdate
-            ? new Date(data.birthdate).toLocaleDateString()
-            : "N/A";
+       // Update birthdate and age display
+    const birthdate = data.birthdate ? new Date(data.birthdate).toLocaleDateString() : "N/A";
+    document.getElementById("detail-birthdate").textContent = birthdate;
+    
+    const age = calculateAge(data.birthdate);
+    const ageBadge = document.getElementById("detail-age");
+    if (age !== 'N/A') {
+        ageBadge.textContent = `${age} years old`;
+        ageBadge.style.display = 'inline-block';
+    } else {
+        ageBadge.style.display = 'none';
+    }
         document.getElementById("detail-contact").textContent =
             data.contact || "-";
         document.getElementById("detail-income").textContent =
@@ -522,20 +552,20 @@ async function loadResidentDetails(residentId) {
             document.getElementById("detail-address").textContent =
                 addressParts.join(", ") || "Address not specified";
 
-            // Members list
-            if (data.household.members && data.household.members.length) {
-                membersContainer.innerHTML = data.household.members
-                    .map(
-                        (member) => `
-                    <tr>
-                        <td>${member.full_name || "N/A"}</td>
-                        <td>${member.relationship || "N/A"}</td>
-                        <td>${member.age || "N/A"}</td>
-                        <td>${member.status || "N/A"}</td>
-                    </tr>
-                `
-                    )
-                    .join("");
+                if (data.household.members && data.household.members.length) {
+                    membersContainer.innerHTML = data.household.members
+    .map(
+        (member) => `
+        <tr>
+            <td>${member.full_name || "N/A"}</td>
+            <td>${member.relationship || "N/A"}</td>
+            <td>
+                ${member.birthdate ? `<span class="ms-2 badge bg-success">${calculateAge(member.birthdate)} years</span>` : 'N/A'}
+            </td>
+        </tr>
+    `
+    )
+    .join("");
 
                 // Update member count
                 document.getElementById("member-count").textContent =
@@ -562,7 +592,22 @@ async function loadResidentDetails(residentId) {
         showAlert("Failed to load resident details", "danger");
     }
 }
-
+// Add this helper function to your script
+function calculateAge(birthdate) {
+    if (!birthdate) return 'N/A';
+    
+    const birthDate = new Date(birthdate);
+    const today = new Date();
+    
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    
+    return age;
+}
 // Alert helper function
 function showAlert(message, type) {
     const existingAlert = document.querySelector(".alert");

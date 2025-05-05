@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ResidentController;
-
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 // Test route
 Route::get('/test-resident', function() {
     return response()->json([
@@ -34,13 +34,11 @@ Route::get('/residents/{id}', [ResidentController::class, 'show']);
 // Auth routes
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'processLogin'])->name('login.process');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 // Dashboard routes
 Route::middleware(['web'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/residents', [DashboardController::class, 'residents'])->name('resident.info');
-    Route::get('/dashboard/documents', [DashboardController::class, 'documents'])->name('barangay.docs');
     Route::get('/dashboard/permits', [DashboardController::class, 'permits'])->name('business.permits');
     Route::get('/dashboard/incidents', [DashboardController::class, 'incidents'])->name('incident.logs');
     Route::get('/dashboard/view/{section}', [DashboardController::class, 'loadSection']);
