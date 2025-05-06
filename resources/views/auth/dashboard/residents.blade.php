@@ -45,12 +45,13 @@
                 <td>{{ $resident->income_source }}</td>
                 <td>{{ $resident->contact }}</td>
                 <td>
-                    <button class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i></button>
-                    <button type="button" class="btn btn-sm btn-danger delete-resident" data-id="{{ $resident->id }}">
-    <i class="bi bi-trash-fill"></i>
-</button>
-
-                </td>
+    <button class="btn btn-sm btn-primary edit-resident" data-id="{{ $resident->id }}">
+        <i class="bi bi-pencil-square"></i>
+    </button>
+    <button type="button" class="btn btn-sm btn-danger delete-resident" data-id="{{ $resident->id }}">
+        <i class="bi bi-trash-fill"></i>
+    </button>
+</td>
             </tr>
             @endforeach
         </tbody>
@@ -318,72 +319,80 @@
 });
 
 // Handle resident form submission
-document
-    .getElementById("residentForm")
-    .addEventListener("submit", async function (e) {
-        e.preventDefault();
+document.getElementById("residentForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-        const submitBtn = this.querySelector('button[type="submit"]');
-        const originalBtnText = submitBtn.innerHTML;
-        submitBtn.innerHTML =
-            '<i class="bi bi-arrow-repeat spinner"></i> Saving...';
-        submitBtn.disabled = true;
+    const form = e.target;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="bi bi-arrow-repeat spinner"></i> Saving...';
+    submitBtn.disabled = true;
 
-        try {
-            const formData = {
-                full_name: document.getElementById("fullName").value,
-                gender: document.getElementById("gender").value,
-                birthdate: document.getElementById("birthdate").value,
-                household_id: document.getElementById("household").value,
-                household_head_name: document.getElementById(
-                    "household_head_name"
-                ).value,
-                relationship: document.getElementById("relationship").value,
-                income_source: document.getElementById("income").value,
-                contact: document.getElementById("contact").value,
-                _token: document.querySelector('meta[name="csrf-token"]')
-                    .content,
-            };
+    try {
+        const formData = {
+            full_name: document.getElementById("fullName").value,
+            gender: document.getElementById("gender").value,
+            birthdate: document.getElementById("birthdate").value,
+            household_id: document.getElementById("household").value,
+            household_head_name: document.getElementById("household_head_name").value,
+            relationship: document.getElementById("relationship").value,
+            income_source: document.getElementById("income").value,
+            contact: document.getElementById("contact").value,
+            _token: document.querySelector('meta[name="csrf-token"]').content,
+        };
 
-            const response = await fetch("/residents", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                    "X-CSRF-TOKEN": formData._token,
-                },
-                body: JSON.stringify(formData),
-            });
+        const residentId = form.querySelector('input[name="resident_id"]')?.value;
+        const url = residentId ? `/residents/${residentId}` : "/residents";
+        const method = residentId ? "PUT" : "POST";
 
-            const result = await response.json();
-            console.log("API Response:", result); // Debugging
+        const response = await fetch(url, {
+            method: method,
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "X-CSRF-TOKEN": formData._token,
+            },
+            body: JSON.stringify(formData),
+        });
 
-            if (!response.ok) {
-                throw new Error(result.message || "Failed to save resident");
-            }
+        const result = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(result.message || "Failed to save resident");
+        }
 
-            // Handle both response formats
-            const residentData = result.resident || result;
+        // Handle both response formats
+        const residentData = result.resident || result;
 
-            // Format all data with proper fallbacks
-            const formattedData = {
-                id: residentData.id || "",
-                full_name: residentData.full_name || "N/A",
-                gender: residentData.gender || "N/A",
-                birthdate: residentData.birthdate
-                    ? residentData.birthdate.split("T")[0] ||
-                      residentData.birthdate
-                    : "N/A",
-                household_id:
-                    residentData.household_id ||
-                    residentData.household?.id ||
-                    "N/A",
-                income_source: residentData.income_source || "-",
-                contact: residentData.contact || "-",
-            };
+        // Format all data with proper fallbacks
+        const formattedData = {
+            id: residentData.id || "",
+            full_name: residentData.full_name || "N/A",
+            gender: residentData.gender || "N/A",
+            birthdate: residentData.birthdate
+                ? residentData.birthdate.split("T")[0] || residentData.birthdate
+                : "N/A",
+            household_id: residentData.household_id || residentData.household?.id || "N/A",
+            income_source: residentData.income_source || "-",
+            contact: residentData.contact || "-",
+        };
 
-            // Create new row
-            const newRow = `
+        // After successful submission:
+      // After successful submission:
+if (residentId) {
+    // Update existing row
+    const row = document.querySelector(`tr[data-resident-id="${residentId}"]`);
+    if (row) {
+        row.querySelector('td:nth-child(2) strong').textContent = formattedData.full_name;
+        row.querySelector('td:nth-child(3)').textContent = formattedData.gender;
+        row.querySelector('td:nth-child(4)').textContent = formattedData.birthdate;
+        row.querySelector('td:nth-child(5)').textContent = `Household #${formattedData.household_id}`;
+        row.querySelector('td:nth-child(6)').textContent = formattedData.income_source;
+        row.querySelector('td:nth-child(7)').textContent = formattedData.contact;
+    }
+} else {
+    // Add new row (using server response data)
+    const newRow = `
         <tr class="clickable-row" data-resident-id="${formattedData.id}">
             <td>${formattedData.id}</td>
             <td><strong>${formattedData.full_name}</strong></td>
@@ -393,36 +402,38 @@ document
             <td>${formattedData.income_source}</td>
             <td>${formattedData.contact}</td>
             <td>
-                <button class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i></button>
+                <button class="btn btn-sm btn-primary edit-resident" data-id="${formattedData.id}">
+                    <i class="bi bi-pencil-square"></i>
+                </button>
                 <button class="btn btn-sm btn-danger delete-resident" data-id="${formattedData.id}">
                     <i class="bi bi-trash-fill"></i>
                 </button>
             </td>
         </tr>`;
+    
+    // Add to top of table
+    document.querySelector('tbody').insertAdjacentHTML('afterbegin', newRow);
+}
 
-            // Insert new row
-            const tbody = document.querySelector("table tbody");
-            if (!tbody) throw new Error("Table body not found");
-            tbody.insertAdjacentHTML("afterbegin", newRow);
+// Then reset form and properly hide modal
+form.reset();
+const modal = bootstrap.Modal.getInstance(document.getElementById("addResidentModal"));
+modal.hide();
 
-            // Close modal and cleanup
-            bootstrap.Modal.getInstance(
-                document.getElementById("addResidentModal")
-            ).hide();
-            this.reset();
-            document.body.classList.remove("modal-open");
-            const backdrop = document.querySelector(".modal-backdrop");
-            if (backdrop) backdrop.remove();
+// Remove the backdrop and re-enable body scrolling
+document.body.classList.remove("modal-open");
+const backdrop = document.querySelector(".modal-backdrop");
+if (backdrop) backdrop.remove();
 
-            showAlert("Resident added successfully!", "success");
-        } catch (error) {
-            console.error("Error:", error);
-            showAlert(error.message || "Error saving resident", "danger");
-        } finally {
-            submitBtn.innerHTML = originalBtnText;
-            submitBtn.disabled = false;
-        }
-    });
+showAlert(`Resident ${residentId ? 'updated' : 'added'} successfully!`, "success");
+    } catch (error) {
+        console.error("Error:", error);
+        showAlert(error.message || "Error saving resident", "danger");
+    } finally {
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+    }
+});
 
 // Row click handler
 document.addEventListener("click", function (e) {
@@ -436,8 +447,97 @@ document.addEventListener("click", function (e) {
         ).show();
     }
 
-    // Handle delete buttons (already properly implemented in your code)
+    // Handle delete buttons
+    if (e.target.closest(".delete-resident")) {
+        e.stopPropagation();
+        const button = e.target.closest(".delete-resident");
+        const residentId = button.getAttribute("data-id");
+
+        if (confirm("Are you sure you want to delete this resident? This action cannot be undone.")) {
+            deleteResident(residentId);
+        }
+    }
+
+    // Handle edit buttons
+    if (e.target.closest(".edit-resident")) {
+        e.stopPropagation();
+        const button = e.target.closest(".edit-resident");
+        const residentId = button.getAttribute("data-id");
+        loadResidentForEdit(residentId);
+    }
 });
+
+// Delete resident function
+async function deleteResident(residentId) {
+    try {
+        const response = await fetch(`/residents/${residentId}`, {
+            method: "DELETE",
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+            },
+        });
+
+        const data = await response.json();
+        
+        if (data.success) {
+            showAlert("Resident deleted successfully!", "success");
+            // Remove the row from the table
+            document.querySelector(`tr[data-resident-id="${residentId}"]`).remove();
+        } else {
+            throw new Error(data.message || "Failed to delete resident");
+        }
+    } catch (error) {
+        console.error("Error deleting resident:", error);
+        showAlert(error.message || "Error deleting resident", "danger");
+    }
+}
+
+// Load resident data for editing
+async function loadResidentForEdit(residentId) {
+    try {
+        const response = await fetch(`/api/residents/${residentId}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        // Fill the form with resident data
+        document.getElementById("fullName").value = data.full_name || "";
+        document.getElementById("gender").value = data.gender || "";
+        document.getElementById("birthdate").value = data.birthdate ? data.birthdate.split('T')[0] : "";
+        document.getElementById("contact").value = data.contact || "";
+        document.getElementById("income").value = data.income_source || "";
+        document.getElementById("relationship").value = data.relationship || "";
+        
+        // Set household if available
+        if (data.household_id) {
+            document.getElementById("household").value = data.household_id;
+            document.getElementById("household_head_name").value = data.household_head_name || "";
+        }
+
+        // Change modal title and add hidden ID field
+        document.getElementById("modalTitle").textContent = "Edit Resident";
+        const form = document.getElementById("residentForm");
+        
+        // Remove any existing hidden ID field
+        const existingIdField = form.querySelector('input[name="resident_id"]');
+        if (existingIdField) existingIdField.remove();
+        
+        // Add hidden ID field
+        const idField = document.createElement("input");
+        idField.type = "hidden";
+        idField.name = "resident_id";
+        idField.value = residentId;
+        form.appendChild(idField);
+
+        // Show the modal
+        new bootstrap.Modal(document.getElementById("addResidentModal")).show();
+    } catch (error) {
+        console.error("Error loading resident for edit:", error);
+        showAlert("Failed to load resident data for editing", "danger");
+    }
+}
 
 // Household change handler
 document.getElementById("household").addEventListener("change", function () {
@@ -502,7 +602,6 @@ async function loadResidentDetails(residentId) {
     });
 
     try {
-        // First check if we're using /api/ or /residents/ endpoint
         const endpoint = `/api/residents/${residentId}`;
         const response = await fetch(endpoint);
 
@@ -511,7 +610,7 @@ async function loadResidentDetails(residentId) {
         }
 
         const data = await response.json();
-        console.log("API Response:", data); // Debugging
+        console.log("API Response:", data);
 
         // Resident Info
         document.getElementById("detail-name").textContent =
@@ -592,7 +691,8 @@ async function loadResidentDetails(residentId) {
         showAlert("Failed to load resident details", "danger");
     }
 }
-// Add this helper function to your script
+
+// Helper function to calculate age
 function calculateAge(birthdate) {
     if (!birthdate) return 'N/A';
     
@@ -608,6 +708,7 @@ function calculateAge(birthdate) {
     
     return age;
 }
+
 // Alert helper function
 function showAlert(message, type) {
     const existingAlert = document.querySelector(".alert");
@@ -625,5 +726,4 @@ function showAlert(message, type) {
     document.body.appendChild(alertDiv);
     setTimeout(() => alertDiv.remove(), 5000);
 }
-
 </script>

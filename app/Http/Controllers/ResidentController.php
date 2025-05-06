@@ -93,22 +93,29 @@ class ResidentController extends Controller
         }
     }
 
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'full_name' => 'required|string|max:255',
+            'gender' => 'required|string',
+            'birthdate' => 'required|date',
+            // Add other validation rules
+        ]);
+    
+        $resident = Resident::findOrFail($id);
+        $resident->update($validated);
+    
+        return response()->json([
+            'success' => true,
+            'resident' => $resident
+        ]);
+    }
+    
     public function destroy($id)
     {
-        try {
-            $resident = Resident::findOrFail($id);
-            $resident->delete();
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Resident deleted successfully'
-            ]);
-            
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to delete resident: ' . $e->getMessage()
-            ], 500);
-        }
+        $resident = Resident::findOrFail($id);
+        $resident->delete();
+    
+        return response()->json(['success' => true]);
     }
 }

@@ -108,38 +108,36 @@
                 </div>
             </div>
         </div>
-
-        <!-- Helpdesk -->
-        <div class="col-xl-3 col-md-6">
-            <div class="card stats-card card-hover-warning shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div>
-                            <div class="text-muted text-uppercase fw-bold small">Helpdesk</div>
-                            <div class="stat-value text-warning">97</div>
-                            <div class="stat-change text-success">
-                                <i class="fas fa-arrow-up trend-icon"></i>
-                                <span>2% increase</span>
-                            </div>
-                        </div>
-                        <div class="icon-circle">
-                            <i class="fas fa-headset text-warning"></i>
-                        </div>
-                    </div>
-                    <div class="progress mt-4">
-                        <div class="progress-bar bg-warning" role="progressbar" style="width: 55%"></div>
-                    </div>
-                    <div class="mini-chart">
-                        <div class="chart-bar" style="height: 35%"></div>
-                        <div class="chart-bar" style="height: 45%"></div>
-                        <div class="chart-bar" style="height: 55%"></div>
-                        <div class="chart-bar" style="height: 40%"></div>
-                        <div class="chart-bar" style="height: 50%"></div>
+<!-- Incidents -->
+<div class="col-xl-3 col-md-6">
+    <div class="card stats-card card-hover-danger shadow-sm">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <div class="text-muted text-uppercase fw-bold small">Incidents</div>
+                    <div class="stat-value text-danger">97</div>
+                    <div class="stat-change text-success">
+                        <i class="fas fa-arrow-up trend-icon"></i>
+                        <span>2% increase</span>
                     </div>
                 </div>
+                <div class="icon-circle">
+                    <i class="fas fa-exclamation-triangle text-danger"></i>
+                </div>
+            </div>
+            <div class="progress mt-4">
+                <div class="progress-bar bg-danger" role="progressbar" style="width: 55%"></div>
+            </div>
+            <div class="mini-chart">
+                <div class="chart-bar" style="height: 35%"></div>
+                <div class="chart-bar" style="height: 45%"></div>
+                <div class="chart-bar" style="height: 55%"></div>
+                <div class="chart-bar" style="height: 40%"></div>
+                <div class="chart-bar" style="height: 50%"></div>
             </div>
         </div>
     </div>
+</div>
 
     <!-- Donut Charts -->
     <div class="row g-4 mt-4">
@@ -205,7 +203,7 @@
             <div class="card shadow-sm border-0 p-3">
                 <div class="text-center">
                     <p class="fw-bold mb-1">97</p>
-                    <small class="text-muted">Total Tickets</small>
+                    <small class="text-muted">Total Incidents</small>
                 </div>
                 <div class="d-flex justify-content-center mt-3">
                     <div style="width: 120px; height: 120px;">
@@ -222,134 +220,154 @@
 </div>
 
 <style>
-   .dashboard-container {
-        height: 100vh;
-        overflow-y: auto; /* Only vertical scrolling */
-        overflow-x: hidden; /* Prevent horizontal scrolling */
-        padding-right: 25px; /* Prevent content from touching scrollbar */
-    }
-    .row, .col, .card, .custom-banner {
-        max-width: 150%;
-        overflow-x: hidden;
-    }
-    .stats-card {
-        border: none;
-        border-radius: 15px;
-        transition: all 0.3s ease;
-        overflow: hidden;
-    }
-
-    .stats-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 15px rgba(0, 0, 0, .1);
-    }
-
-    .card-hover-primary:hover {
-        background: linear-gradient(45deg, #4e73df, #224abe);
-    }
-
-    .card-hover-success:hover {
-        background: linear-gradient(45deg, #1cc88a, #169a6b);
-    }
-
-    .card-hover-info:hover {
-        background: linear-gradient(45deg, #36b9cc, #258391);
-    }
-
-    .card-hover-warning:hover {
-        background: linear-gradient(45deg, #f6c23e, #dda20a);
-    }
-
-    .stats-card:hover .text-primary,
-    .stats-card:hover .text-success,
-    .stats-card:hover .text-info,
-    .stats-card:hover .text-warning,
-    .stats-card:hover .text-muted,
-    .stats-card:hover .card-title {
-        color: white !important;
-    }
-
-    .icon-circle {
-        height: 60px;
-        width: 60px;
-        border-radius: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.8rem;
-        background: rgba(0, 0, 0, .05);
-        transition: all 0.3s ease;
-    }
-
-    .stats-card:hover .icon-circle {
-        background: rgba(255, 255, 255, .2);
-    }
-
-    .stat-value {
-        font-size: 1.8rem;
-        font-weight: 700;
-        margin: 10px 0;
-    }
-
-    .progress {
-        height: 8px;
-        border-radius: 4px;
-        background: rgba(0, 0, 0, .05);
-    }
-
-    .progress-bar {
-        border-radius: 4px;
-    }
-
-    .stat-change {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        font-size: 0.9rem;
-    }
-
-    .trend-icon {
-        font-size: 0.8rem;
-    }
-
-    .mini-chart {
-        height: 50px;
-        margin-top: 10px;
-        display: flex;
-        align-items: flex-end;
-        gap: 3px;
-    }
-
-    .chart-bar {
-        flex: 1;
-        background: rgba(0, 0, 0, .05);
-        border-radius: 3px 3px 0 0;
-        transition: all 0.3s ease;
-    }
-
-    .stats-card:hover .chart-bar {
-        background: rgba(255, 255, 255, .2);
-    }
-
-    /* Donut chart cards */
-    .card.shadow-sm {
-        border-radius: 15px;
-        transition: all 0.3s ease;
-    }
-
-    .card.shadow-sm:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 15px rgba(0, 0, 0, .1) !important;
-    }
+.dashboard-container {
+    height: 90vh;
+    overflow-y: scroll; /* Changed to scroll to always show scroll space */
+    overflow-x: hidden;
+    padding-right: 25px;
     
-    .custom-banner {
-        width: 100%;
-        max-height: 240px;
-        object-fit: cover;
-        border-radius: 10px;
-        object-position: 0 -20px;
-        margin-bottom: 15px; /* Added margin to separate from cards */
-    }
+    /* Hide scrollbar but keep functionality */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+.card-hover-danger:hover {
+    background: linear-gradient(45deg, #e74a3b, #b92c1f);
+}
+
+.stats-card:hover .text-danger {
+    color: white !important;
+}
+
+/* WebKit scrollbar hide */
+.dashboard-container::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+.row, .col, .card, .custom-banner {
+    max-width: 120%; /* Changed from 130% to prevent overflow */
+    overflow-x: hidden;
+}
+
+.stats-card {
+    border: none;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, .1);
+}
+
+.card-hover-primary:hover {
+    background: linear-gradient(45deg, #4e73df, #224abe);
+}
+
+.card-hover-success:hover {
+    background: linear-gradient(45deg, #1cc88a, #169a6b);
+}
+
+.card-hover-info:hover {
+    background: linear-gradient(45deg, #36b9cc, #258391);
+}
+
+.card-hover-warning:hover {
+    background: linear-gradient(45deg, #f6c23e, #dda20a);
+}
+
+.stats-card:hover .text-primary,
+.stats-card:hover .text-success,
+.stats-card:hover .text-info,
+.stats-card:hover .text-warning,
+.stats-card:hover .text-muted,
+.stats-card:hover .card-title {
+    color: white !important;
+}
+
+.icon-circle {
+    height: 60px;
+    width: 60px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    background: rgba(0, 0, 0, .05);
+    transition: all 0.3s ease;
+}
+
+.stats-card:hover .icon-circle {
+    background: rgba(255, 255, 255, .2);
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 10px 0;
+}
+
+.progress {
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, .05);
+}
+
+.progress-bar {
+    border-radius: 4px;
+}
+
+.stat-change {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+}
+
+.trend-icon {
+    font-size: 0.8rem;
+}
+
+.mini-chart {
+    height: 50px;
+    margin-top: 10px;
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+}
+
+.chart-bar {
+    flex: 1;
+    background: rgba(0, 0, 0, .05);
+    border-radius: 3px 3px 0 0;
+    transition: all 0.3s ease;
+}
+
+.stats-card:hover .chart-bar {
+    background: rgba(41, 40, 40, 0.2);
+}
+
+/* Donut chart cards */
+.card.shadow-sm {
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.card.shadow-sm:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, .1) !important;
+}
+
+.custom-banner {
+    width: 100%;
+    max-height: 240px;
+    object-fit: cover;
+    border-radius: 10px;
+    object-position: 0 -20px;
+    margin-bottom: 15px;
+}
 </style>
 
 <script>

@@ -14,7 +14,7 @@
     <style>
     body {
         margin: 0;
-        background-color: rgb(255, 255, 255);
+        background-color: rgb(255, 252, 252);
         font-family: sans-serif;
         overflow-x: hidden; /* ✅ Hides horizontal scroll */
         overflow-y: hidden!important;
@@ -147,7 +147,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
+ <script>
     // 1. First define the chart rendering function
     function renderDashboardCharts() {
         const donutConfig = (ctx, data, colors) => {
