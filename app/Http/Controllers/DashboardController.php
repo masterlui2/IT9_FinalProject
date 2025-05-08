@@ -25,8 +25,9 @@ class DashboardController extends Controller
     }
 
     public function permits() {
-        return view('auth.dashboard.permits');
+        return view('auth.permits.index'); // Laravel uses dot notation for folders
     }
+    
 
     public function incidents() {
         return view('auth.dashboard.incidents');

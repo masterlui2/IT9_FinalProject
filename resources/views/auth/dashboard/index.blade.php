@@ -14,7 +14,7 @@
     <style>
     body {
         margin: 0;
-        background-color: rgb(255, 252, 252);
+        background-color: rgb(248, 247, 247);
         font-family: sans-serif;
         overflow-x: hidden; /* ✅ Hides horizontal scroll */
         overflow-y: hidden!important;

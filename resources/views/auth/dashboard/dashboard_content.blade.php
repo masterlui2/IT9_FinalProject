@@ -371,6 +371,7 @@
 </style>
 
 <script>
+    
     // Wait for DOM to be fully loaded before initializing charts
     document.addEventListener('DOMContentLoaded', function() {
         const donutConfig = (ctx, data, colors) => {
