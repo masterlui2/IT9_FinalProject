@@ -1,7 +1,7 @@
 <script src="{{ asset('js/resident.js') }}"></script>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<div class="container mt-4">
+<div class="container mt-4" style="padding-top: 1rem;">
     <h2 class="mb-4">Resident Information</h2>
 
     <!-- Search and Add Button Section -->

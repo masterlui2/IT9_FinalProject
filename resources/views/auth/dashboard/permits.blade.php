@@ -8,7 +8,6 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  
   <style>
 .view-requests-btn {
 background-color: #0d6efd;
@@ -41,7 +40,7 @@ margin-right: 5px;
 body {
 font-family: 'Inter', sans-serif;
 background-color: var(--light-gray);
-padding-top: 1rem;
+padding-top: 3rem;
 }
 
 .permit-card {
@@ -215,7 +214,7 @@ margin: 0.5rem auto;
       </div>
     @endif
 
-    @if($errors->any()))
+    @if($errors->any())
       <div class="alert alert-danger alert-dismissible fade show">
         <ul>
           @foreach($errors->all() as $error)
@@ -228,8 +227,9 @@ margin: 0.5rem auto;
 
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h1 class="fs-2 fw-semibold text-gray-900 mb-0">Barangay Permits</h1>
-      <button class="view-requests-btn" data-bs-toggle="modal" data-bs-target="#requestsModal">View Requests</button>
-    </div>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#requestsModal">
+  <i class="fas fa-list-check me-2"></i>View Requests
+</button>    </div>
 
     <div class="permit-container">
       <!-- Barangay Clearance -->
@@ -292,275 +292,275 @@ margin: 0.5rem auto;
         </div>
       </div>
 
-    <!-- Requests Modal -->
-    <div class="modal fade" id="requestsModal" tabindex="-1" aria-labelledby="requestsModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header bg-primary text-white">
-            <h5 class="modal-title" id="requestsModalLabel">My Requests</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="table-responsive">
-              <table class="table table-hover">
-                <thead class="table-light">
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="requestsTableBody">
-                  <!-- Dynamically loaded via AJAX -->
-                  <tr>
-                    <td colspan="6" class="text-center">Loading requests...</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          </div>
+<!-- Requests Modal -->
+<div class="modal fade" id="requestsModal" tabindex="-1" aria-labelledby="requestsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="requestsModalLabel">
+          My Requests <span class="badge bg-white text-primary" id="requestsCount">0</span>
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead class="table-light">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Request ID</th>
+                <th scope="col">Type</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">Date Requested</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="requestsTableBody">
+              <!-- Will be populated by JavaScript -->
+            </tbody>
+          </table>
         </div>
       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
     </div>
-
-    <!-- Barangay Clearance Modal -->
-    <div class="modal fade" id="barangayClearanceModal" tabindex="-1" aria-labelledby="barangayClearanceModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content" style="max-height: 85vh;">
-          <div class="modal-header bg-light sticky-top">
-            <div class="d-flex align-items-center">
-              <img src="{{ asset('downloads/permits/approved.png') }}" alt="Permit Icon" width="40" height="40">
-              <div class="ms-3">
-                <h5 class="modal-title fw-bold mb-0 text-primary">Barangay Clearance</h5>
-                <small class="text-muted">Fee: ₱100.00</small>
-              </div>
-            </div>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+</div>
+  <!-- Barangay Clearance Modal -->
+<div class="modal fade" id="barangayClearanceModal" tabindex="-1" aria-labelledby="barangayClearanceModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content" style="max-height: 85vh;">
+      <div class="modal-header bg-light sticky-top">
+        <div class="d-flex align-items-center">
+          <img src="{{ asset('downloads/permits/approved.png') }}" alt="Permit Icon" width="40" height="40">
+          <div class="ms-3">
+            <h5 class="modal-title fw-bold mb-0 text-primary">Barangay Clearance</h5>
+            <small class="text-muted">Fee: ₱100.00</small>
           </div>
-          <div class="modal-body p-4" style="overflow-y: auto;"> <!-- Scrollable content -->
-
-          <form method="POST" action="{{ route('permits.clearance.store') }}">
-            @csrf
-              <!-- Personal Information Section -->
-              <div class="mb-4">
-                <h6 class="fw-bold mb-3 text-secondary border-bottom pb-2">Personal Information</h6>
-                
-                <div class="row g-3">
-                  <div class="col-md-12">
-                    <label for="bcFullName" class="form-label required">Full Name</label>
-                    <input type="text" class="form-control" id="bcFullName" name="full_name" value="Luigi A Ednilan" required>
-                  </div>
-                  
-                  <div class="col-md-4">
-                    <label for="bcBirthdate" class="form-label required">Birthdate</label>
-                    <input type="date" class="form-control" id="bcBirthdate" name="birthdate" value="2003-01-01" required>
-                  </div>
-                  
-                  <div class="col-md-2">
-                    <label for="bcAge" class="form-label required">Age</label>
-                    <input type="number" class="form-control" id="bcAge" name="age" min="1" value="20" required>
-                  </div>
-                  
-                  <div class="col-md-3">
-                    <label for="bcGender" class="form-label required">Gender</label>
-                    <select class="form-select" id="bcGender" name="gender" required>
-                      <option value="Male" selected>Male</option>
-                      <option value="Female">Female</option>
-                      <option value="Other">Other</option>
-                    </select>
-                  </div>
-                  
-                  <div class="col-md-3">
-                    <label for="bcCivilStatus" class="form-label required">Civil Status</label>
-                    <select class="form-select" id="bcCivilStatus" name="civil_status" required>
-                      <option value="Single" selected>Single</option>
-                      <option value="Married">Married</option>
-                      <option value="Widowed">Widowed</option>
-                      <option value="Separated">Separated</option>
-                    </select>
-                  </div>
-                  
-                  <div class="col-md-12">
-                    <label for="bcAddress" class="form-label required">Complete Address</label>
-                    <textarea class="form-control" id="bcAddress" name="address" rows="2" required>123 Sample Street, Barangay Sample</textarea>
-                  </div>
-                  
-                  <div class="col-md-6">
-                    <label for="bcContact" class="form-label required">Contact Number</label>
-                    <input type="tel" class="form-control" id="bcContact" name="contact_number" value="09123456789" required>
-                  </div>
-                </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4" style="overflow-y: auto;">
+        <form method="POST" action="{{ route('permits.clearance.store') }}" id="clearanceForm" enctype="multipart/form-data">
+          @csrf
+          <input type="hidden" name="type" value="Barangay Clearance">
+          
+          <!-- Personal Information Section -->
+          <div class="mb-4">
+            <h6 class="fw-bold mb-3 text-secondary border-bottom pb-2">Personal Information</h6>
+            
+            <div class="row g-3">
+              <div class="col-md-12">
+                <label for="bcFullName" class="form-label required">Full Name</label>
+                <input type="text" class="form-control" id="bcFullName" name="full_name" required>
               </div>
               
-              <!-- Request Details Section -->
-              <div class="mb-4">
-                <h6 class="fw-bold mb-3 text-secondary border-bottom pb-2">Request Details</h6>
-                
-                <div class="row g-3">
-                  <div class="col-md-12">
-                    <label for="bcPurpose" class="form-label required">Purpose</label>
-                    <textarea class="form-control" id="bcPurpose" name="purpose" rows="3" required>For presentation purposes only</textarea>
-                  </div>
-                     <div class="col-md-6">
-                    <label for="bcDateRequest" class="form-label required">Date of Request</label>
-                    <input type="date" class="form-control" id="bcDateRequest" name="date_requested" value="<?php echo date('Y-m-d'); ?>" required>
-                  </div>
-                </div>
+              <div class="col-md-4">
+                <label for="bcBirthdate" class="form-label required">Birthdate</label>
+                <input type="date" class="form-control" id="bcBirthdate" name="birthdate" required>
               </div>
-            </div>
-            
-            <div class="modal-footer bg-light sticky-bottom">
-              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-primary px-4" onclick="showSubmissionAlert(event)">Submit Request</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-
-   <!-- Certificate of Residency Modal -->
-  <div class="modal fade" id="residencyModal" tabindex="-1" aria-labelledby="residencyModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-custom">
-      <div class="modal-content">
-        <div class="modal-header border-0 pb-0">
-          <div class="d-flex align-items-center">
-            <img src="{{ asset('downloads/permits/sms.png') }}" alt="Permit Icon" class="modal-permit-icon">
-            <div>
-              <h5 class="modal-title modal-permit-title mb-1">Certificate of Residency</h5>
-              <p class="modal-permit-fee mb-0">Fee: ₱75</p>
+              <div class="col-md-3">
+                <label for="bcGender" class="form-label required">Gender</label>
+                <select class="form-select" id="bcGender" name="gender" required>
+                  <option value="">Select...</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              
+              <div class="col-md-3">
+                <label for="bcCivilStatus" class="form-label required">Civil Status</label>
+                <select class="form-select" id="bcCivilStatus" name="civil_status" required>
+                  <option value="">Select...</option>
+                  <option value="Single">Single</option>
+                  <option value="Married">Married</option>
+                  <option value="Widowed">Widowed</option>
+                  <option value="Separated">Separated</option>
+                </select>
+              </div>
+              
+              <div class="col-md-12">
+                <label for="bcAddress" class="form-label required">Complete Address</label>
+                <textarea class="form-control" id="bcAddress" name="address" rows="2" required></textarea>
+              </div>
+              
+              <div class="col-md-6">
+                <label for="bcContact" class="form-label required">Contact Number</label>
+                <input type="tel" class="form-control" id="bcContact" name="contact_number" required>
+              </div>
             </div>
           </div>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body pt-1">
-        <form method="POST" action="{{ route('permits.residency.store') }}">
-        @csrf           
-         <div class="mb-3">
-              <label for="crFullName" class="form-label required-field">Full Name</label>
-              <input type="text" class="form-control" id="crFullName" value="Luigi A Ednilan" required>
-            </div>
+          
+          <!-- Request Details Section -->
+          <div class="mb-4">
+            <h6 class="fw-bold mb-3 text-secondary border-bottom pb-2">Request Details</h6>
             
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="crBirthdate" class="form-label required-field">Birthdate</label>
-                <input type="date" class="form-control" id="crBirthdate" value="2003-01-01" required>
-              </div>
-              <div class="col-md-6">
-                <label for="crAge" class="form-label required-field">Age</label>
-                <input type="number" class="form-control" id="crAge" value="20" required>
+            <div class="row g-3">
+              <div class="col-md-12">
+                <label for="bcPurpose" class="form-label required">Purpose</label>
+                <textarea class="form-control" id="bcPurpose" name="purpose" rows="3" required></textarea>
               </div>
             </div>
-            
-            <div class="mb-3">
-              <label for="crAddress" class="form-label required-field">Complete Address (with Purok/Sitio)</label>
-              <textarea class="form-control" id="crAddress" rows="2" required>123 Sample Street, Barangay Sample</textarea>
-            </div>
-            
-            <div class="mb-3">
-              <label for="crContact" class="form-label required-field">Contact Number</label>
-              <input type="tel" class="form-control" id="crContact" value="09123456789" required>
-            </div>
-            
-            <div class="mb-3">
-              <label for="crYearsResidency" class="form-label required-field">Years of Residency</label>
-              <input type="number" class="form-control" id="crYearsResidency" value="5" required>
-            </div>
-            
-            <div class="mb-3">
-              <label for="crPurpose" class="form-label required-field">Purpose of Request</label>
-              <textarea class="form-control" id="crPurpose" rows="2" required>For presentation purposes only</textarea>
-            </div>
-            
-            <div class="mb-3">
-              <label for="crDateRequest" class="form-label required-field">Date of Request</label>
-              <input type="date" class="form-control" id="crDateRequest" value="<?php echo date('Y-m-d'); ?>" required>
-            </div>
-            
-            <div class="modal-footer border-0 pt-4 px-0">
-              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-primary" onclick="showSubmissionAlert(event)">Submit Request</button>
-            </div>
-          </form>
-        </div>
+          </div>
+          
+          <div class="modal-footer bg-light sticky-bottom">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Submit Request</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Business Permit Modal -->
-  <div class="modal fade" id="businessPermitModal" tabindex="-1" aria-labelledby="businessPermitModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-custom">
-      <div class="modal-content">
-        <div class="modal-header border-0 pb-0">
-          <div class="d-flex align-items-center">
-            <img src="{{ asset('downloads/permits/bus.png') }}" alt="Permit Icon" class="modal-permit-icon">
-            <div>
-              <h5 class="modal-title modal-permit-title mb-1">Business Permit</h5>
-              <p class="modal-permit-fee mb-0">Fee: ₱100</p>
-            </div>
+  <!-- Certificate of Residency Modal -->
+<div class="modal fade" id="residencyModal" tabindex="-1" aria-labelledby="residencyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-custom">
+    <div class="modal-content">
+      <div class="modal-header border-0 pb-0">
+        <div class="d-flex align-items-center">
+          <img src="{{ asset('downloads/permits/sms.png') }}" alt="Permit Icon" class="modal-permit-icon">
+          <div>
+            <h5 class="modal-title modal-permit-title mb-1">Certificate of Residency</h5>
+            <p class="modal-permit-fee mb-0">Fee: ₱75</p>
           </div>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body pt-1">
-        <form method="POST" action="{{ route('permits.business.store') }}">
-        @csrf
-              <div class="mb-3">
-              <label for="bpBusinessName" class="form-label required-field">Business Name</label>
-              <input type="text" class="form-control" id="bpBusinessName" value="Luigi's Sample Business" required>
-            </div>
-            
-            <div class="mb-3">
-              <label for="bpOwnerName" class="form-label required-field">Business Owner's Full Name</label>
-              <input type="text" class="form-control" id="bpOwnerName" value="Luigi A Ednilan" required>
-            </div>
-            
-            <div class="mb-3">
-              <label for="bpBusinessAddress" class="form-label required-field">Business Address</label>
-              <textarea class="form-control" id="bpBusinessAddress" rows="2" required>123 Sample Street, Barangay Sample</textarea>
-            </div>
-            
-            <div class="mb-3">
-              <label for="bpBusinessType" class="form-label required-field">Type of Business</label>
-              <input type="text" class="form-control" id="bpBusinessType" value="Retail" required>
-            </div>
-            
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="bpTin" class="form-label">TIN</label>
-                <input type="text" class="form-control" id="bpTin" value="123-456-789">
-              </div>
-              <div class="col-md-6">
-                <label for="bpDti" class="form-label">DTI Registration No.</label>
-                <input type="text" class="form-control" id="bpDti" value="DTI123456789">
-              </div>
-            </div>
-            
-            <div class="mb-3">
-              <label for="bpDateApplication" class="form-label required-field">Date of Application</label>
-              <input type="date" class="form-control" id="bpDateApplication" value="<?php echo date('Y-m-d'); ?>" required>
-            </div>
-            
-            <div class="mb-3">
-              <label for="bpContact" class="form-label required-field">Contact Number</label>
-              <input type="tel" class="form-control" id="bpContact" value="09123456789" required>
-            </div>
-            
-            <div class="modal-footer border-0 pt-4 px-0">
-              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-primary" onclick="showSubmissionAlert(event)">Submit Request</button>
-            </div>
-          </form>
-        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body pt-1">
+      <form method="POST" action="{{ route('permits.residency.store') }}" enctype="multipart/form-data">  @csrf
+  <input type="hidden" name="permit_type" value="residency">
+  
+  <div class="mb-3">
+    <label for="crFullName" class="form-label required-field">Full Name</label>
+    <input type="text" class="form-control" id="crFullName" name="full_name" required>
+  </div>
+  
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <label for="crBirthdate" class="form-label required-field">Birthdate</label>
+      <input type="date" class="form-control" id="crBirthdate" name="birthdate" required>
+    </div>
+    <div class="col-md-6">
+      <label for="crAge" class="form-label required-field">Age</label>
+      <input type="number" class="form-control" id="crAge" name="age" required>
+    </div>
+  </div>
+  
+  <div class="mb-3">
+    <label for="crAddress" class="form-label required-field">Complete Address (with Purok/Sitio)</label>
+    <textarea class="form-control" id="crAddress" name="address" rows="2" required></textarea>
+  </div>
+  
+  <div class="mb-3">
+    <label for="crContact" class="form-label required-field">Contact Number</label>
+    <input type="tel" class="form-control" id="crContact" name="contact_number" required>
+  </div>
+  
+  <div class="mb-3">
+    <label for="crYearsResidency" class="form-label required-field">Years of Residency</label>
+    <input type="number" class="form-control" id="crYearsResidency" name="years_residency" required>
+  </div>
+  
+  <div class="mb-3">
+    <label for="crPurpose" class="form-label required-field">Purpose of Request</label>
+    <textarea class="form-control" id="crPurpose" name="purpose" rows="2" required></textarea>
+  </div>
+
+  <div class="modal-footer border-0 pt-4 px-0">
+    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+    <button type="submit" class="btn btn-primary">Submit Request</button>
+  </div>
+</form>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Barangay ID Modal -->
+ <!-- Business Permit Modal -->
+<div class="modal fade" id="businessPermitModal" tabindex="-1" aria-labelledby="businessPermitModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-custom">
+    <div class="modal-content">
+      <div class="modal-header border-0 pb-0">
+        <div class="d-flex align-items-center">
+          <img src="{{ asset('downloads/permits/bus.png') }}" alt="Permit Icon" class="modal-permit-icon">
+          <div>
+            <h5 class="modal-title modal-permit-title mb-1">Business Permit</h5>
+            <p class="modal-permit-fee mb-0">Fee: ₱100</p>
+          </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body pt-1">
+        <form method="POST" action="{{ route('permits.business.store') }}" enctype="multipart/form-data">
+          @csrf
+          <input type="hidden" name="type" value="Business Permit">
+
+          <div class="mb-3">
+            <label class="form-label required-field">Business Name</label>
+            <input type="text" class="form-control" name="business_name" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label required-field">Business Owner's Full Name</label>
+            <input type="text" class="form-control" name="full_name" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label required-field">Business Address</label>
+            <textarea class="form-control" name="business_address" rows="2" required></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label required-field">Type of Business</label>
+            <input type="text" class="form-control" name="business_type" required>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label">TIN</label>
+              <input type="text" class="form-control" name="tin">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">DTI Registration No.</label>
+              <input type="text" class="form-control" name="dti_number">
+            </div>
+          </div>
+
+          <!-- Required Base Fields -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label required-field">Birthdate</label>
+              <input type="date" class="form-control" name="birthdate" required>
+            </div>
+
+          <div class="mb-3">
+            <label class="form-label required-field">Full Address</label>
+            <textarea class="form-control" name="address" rows="2" required></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label required-field">Contact Number</label>
+            <input type="tel" class="form-control" name="contact_number" required>
+          </div>
+
+          <div class="modal-footer border-0 pt-4 px-0">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Submit Request</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- Barangay ID Modal -->
 <div class="modal fade" id="barangayIdModal" tabindex="-1" aria-labelledby="barangayIdModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content" style="max-height: 90vh;">
@@ -574,342 +574,276 @@ margin: 0.5rem auto;
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      
+
       <div class="modal-body p-4" style="overflow-y: auto;">
-      <form method="POST" action="{{ route('permits.id.store') }}">
-      @csrf
+        <form method="POST" action="{{ route('permits.id.store') }}" enctype="multipart/form-data">
+          @csrf
+          <input type="hidden" name="date_requested" value="{{ now()->format('Y-m-d') }}">
+
           <!-- Personal Information Section -->
           <div class="mb-4">
             <h6 class="fw-bold mb-3 text-secondary border-bottom pb-2">Personal Information</h6>
-            
+
             <div class="row g-3">
               <div class="col-md-12">
                 <label for="biFullName" class="form-label required">Full Name</label>
-                <input type="text" class="form-control" id="biFullName" value="Luigi A Ednilan" required>
+                <input type="text" class="form-control" id="biFullName" name="full_name" required>
               </div>
-              
+
               <div class="col-md-6">
                 <label for="biBirthdate" class="form-label required">Birthdate</label>
-                <input type="date" class="form-control" id="biBirthdate" value="2003-01-01" required>
+                <input type="date" class="form-control" id="biBirthdate" name="birthdate" required>
               </div>
-              
+
               <div class="col-md-3">
                 <label for="biGender" class="form-label required">Gender</label>
-                <select class="form-select" id="biGender" required>
-                  <option value="Male" selected>Male</option>
+                <select class="form-select" id="biGender" name="gender" required>
+                  <option value="">Select...</option>
+                  <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   <option value="Other">Other</option>
                 </select>
               </div>
-              
+
               <div class="col-md-3">
                 <label for="biCivilStatus" class="form-label required">Civil Status</label>
-                <select class="form-select" id="biCivilStatus" required>
-                  <option value="Single" selected>Single</option>
+                <select class="form-select" id="biCivilStatus" name="civil_status" required>
+                  <option value="">Select...</option>
+                  <option value="Single">Single</option>
                   <option value="Married">Married</option>
                   <option value="Widowed">Widowed</option>
                   <option value="Separated">Separated</option>
                 </select>
               </div>
-              
+
               <div class="col-md-6">
                 <label for="biCitizenship" class="form-label required">Citizenship</label>
-                <input type="text" class="form-control" id="biCitizenship" value="Filipino" required>
+                <input type="text" class="form-control" id="biCitizenship" name="citizenship" placeholder="Filipino" required>
               </div>
-              
+
               <div class="col-md-6">
                 <label for="biContact" class="form-label required">Contact Number</label>
-                <input type="tel" class="form-control" id="biContact" value="09123456789" required>
+                <input type="tel" class="form-control" id="biContact" name="contact_number" placeholder="09123456789" required>
               </div>
-              
+
               <div class="col-md-12">
                 <label for="biAddress" class="form-label required">Complete Address</label>
-                <textarea class="form-control" id="biAddress" rows="2" required>123 Sample Street, Barangay Sample</textarea>
+                <textarea class="form-control" id="biAddress" name="address" rows="2" placeholder="House #, Street, Barangay" required></textarea>
               </div>
             </div>
           </div>
-          
-          <!-- Emergency Contact Section -->
           <div class="mb-4">
-            <h6 class="fw-bold mb-3 text-secondary border-bottom pb-2">Emergency Contact</h6>
-            
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label for="biEmergencyName" class="form-label required">Contact Person</label>
-                <input type="text" class="form-control" id="biEmergencyName" value="Maria Ednilan" required>
-              </div>
-              
-              <div class="col-md-6">
-                <label for="biEmergencyNumber" class="form-label required">Contact Number</label>
-                <input type="tel" class="form-control" id="biEmergencyNumber" value="09123456788" required>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Photo Upload Section -->
-          <div class="mb-4">
-            <h6 class="fw-bold mb-3 text-secondary border-bottom pb-2">Photo Requirements</h6>
-            
-            <div class="row g-3">
-              <div class="col-md-12">
-                <div class="card border-primary">
-                  <div class="card-body">
-                    <label for="biPhoto" class="form-label required">Upload ID Photo</label>
-                    <input type="file" class="form-control" id="biPhoto" accept="image/*" required>
-                    <small class="text-muted">Please upload a clear 1x1 or 2x2 photo with white background</small>
-                    <div class="mt-2 text-center">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+  <h6 class="fw-bold mb-3 text-secondary border-bottom pb-2">Emergency Contact</h6>
+  <div class="row g-3">
+    <div class="col-md-6">
+      <label for="biEmergencyName" class="form-label required">Contact Person</label>
+      <input type="text" class="form-control" id="biEmergencyName" name="emergency_name" placeholder="Full name of emergency contact" required>
+    </div>
+    <!-- ... -->
+  </div>
+</div>
+
+<!-- Photo Upload Section -->
+<div class="mb-4">
+  <h6 class="fw-bold mb-3 text-secondary border-bottom pb-2">Photo Requirements</h6>
+  <div class="row g-3">
+    <div class="col-md-12">
+      <div class="card border-primary">
+        <div class="card-body">
+          <label for="biPhoto" class="form-label required">Upload ID Photo</label>
+          <input type="file" class="form-control" id="biPhoto" name="photo" accept="image/*" required>
+         <small class="text-muted">Please upload a clear 1x1 or 2x2 photo with white background</small>
+        </div>
       </div>
-      
-      <div class="modal-footer bg-light sticky-bottom">
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary px-4" onclick="showSubmissionAlert(event)">Submit Application</button>
-      </div>
-      </form>
     </div>
   </div>
+</div>                                                                
+<!-- Footer -->
+<div class="modal-footer bg-light sticky-bottom">
+  <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+  <button type="submit" class="btn btn-primary px-4">Submit Application</button>
+</div>
+
+</form>
+</div>
+</div>
 </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-// Function to show submission alert and close modal
-function showSubmissionAlert(event) {
-  event.preventDefault();
-  alert('Request submitted!');
-  
-  // Close the modal
-  const modal = event.target.closest('.modal');
-  if (modal) {
-    const bootstrapModal = bootstrap.Modal.getInstance(modal);
-    bootstrapModal.hide();
-  }
-}
-
-// Function to get today's date in YYYY-MM-DD format
-function getTodayDate() {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, '0');
-  const day = String(today.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
-
-// Set today's date for all date fields when the page loads
-document.addEventListener('DOMContentLoaded', function() {
-  const today = getTodayDate();
-  document.querySelectorAll('input[type="date"]').forEach(dateInput => {
-    dateInput.value = today;
-  });
-});
-
-// Test function for direct form submission
-function testSubmission() {
-  const form = document.querySelector('form');
-  const formData = new FormData(form);
-  
-  console.log('Test submission with data:', Object.fromEntries(formData.entries()));
-  
-  fetch('/permits/residency', {
-    method: 'POST',
-    headers: {
-      'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-      'X-Requested-With': 'XMLHttpRequest',
-      'Accept': 'application/json'
-    },
-    body: formData
-  })
-  .then(response => {
-    console.log('Response status:', response.status);
-    return response.json().then(data => ({ status: response.status, data }));
-  })
-  .then(({ status, data }) => {
-    console.log('Full response:', { status, data });
-    if (status === 422) {
-      alert('Validation errors:\n' + 
-        Object.entries(data.errors || {})
-          .map(([field, errors]) => `${field}: ${errors.join(', ')}`)
-          .join('\n')
-      );
-    } else if (!status.ok) {
-      alert('Error: ' + (data.message || `Status ${status}`));
-    } else {
-      alert('Success!');
+// CORE FUNCTIONS
+console.log(document.getElementById('barangayIdModal').getBoundingClientRect());
+function showAlert(type, message) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+    alertDiv.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    const container = document.querySelector('.container');
+    if (container) {
+        container.insertBefore(alertDiv, container.firstChild);
+        setTimeout(() => {
+            new bootstrap.Alert(alertDiv).close();
+        }, 5000);
     }
-  })
-  .catch(console.error);
+}
+// Show My Requests modal after submission
+const requestsModalElement = document.getElementById('requestsModal');
+if (requestsModalElement) {
+    const myRequestsModal = new bootstrap.Modal(requestsModalElement);
+    myRequestsModal.show();
 }
 
-// Global form submission interceptor
-window.addEventListener('submit', function(e) {
-  if (e.target.tagName === 'FORM') {
-    console.group('[GLOBAL INTERCEPTOR] Form submission caught');
-    console.log('Form action:', e.target.action);
-    console.log('Form method:', e.target.method);
-    console.log('Form fields:', Array.from(new FormData(e.target).entries()));
-    console.groupEnd();
-    
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    return false;
-  }
-}, true);
+//Gets color for status badge 
+function getStatusColor(status) {
+    const statusColors = {
+        'approved': 'success',
+        'rejected': 'danger', 
+        'pending': 'warning'
+    };
+    return statusColors[status.toLowerCase()] || 'secondary';
+}
 
-// Main application logic
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('[MAIN] DOM fully loaded - initializing forms');
-  
-  const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
-  console.log('[MAIN] CSRF Token:', csrfToken);
-
-  // Process all forms
-  document.querySelectorAll('form').forEach(form => {
-    console.log(`[FORM] Initializing form: ${form.action}`);
+// REQUEST HANDLING
+async function loadRequests() {
+    const tbody = document.getElementById('requestsTableBody');
+    const countBadge = document.getElementById('requestsCount');
     
-    form.addEventListener('submit', async function(e) {
-      // Prevent default behavior
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      e.stopPropagation();
-      
-      const submitBtn = this.querySelector('button[type="submit"]');
-      const originalText = submitBtn?.innerHTML;
-      
-      try {
+    try {
         // Show loading state
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.innerHTML = `
-            <span class="spinner-border spinner-border-sm" role="status"></span>
-            Processing...
-          `;
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4"><div class="spinner-border" role="status"></div></td></tr>';
+        
+        const response = await fetch("{{ route('api.permits.index') }}", {
+    method: 'GET',
+    credentials: 'same-origin', // ✅ include cookies/session
+    headers: {
+        'Accept': 'application/json'
+    }
+});
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
+        
+        const requests = await response.json();
+        
+        // Update table
+        tbody.innerHTML = requests.length ? '' : '<tr><td colspan="7" class="text-center py-4">No requests found</td></tr>';
+        
+        requests.forEach((request, index) => {
+          tbody.innerHTML += `
+    <tr>
+        <th scope="row">${index + 1}</th>
+        <td>${request.id}</td>
+        <td>${request.type}</td>
+        <td>${request.full_name}</td>
+        <td>${new Date(request.created_at).toLocaleDateString()}</td>
+        <td><span class="badge bg-${getStatusColor(request.status)}">${request.status}</span></td>
+        <td>
+            <button class="btn btn-sm btn-outline-primary me-1">
+                <i class="bi bi-pencil-square"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger">
+                <i class="bi bi-trash"></i>
+            </button>
+        </td>
+    </tr>
+`;
+        });
+        
+        // Update count badge
+        countBadge.textContent = requests.length;
+        
+    } catch (error) {
+        console.error('Failed to load requests:', error);
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7" class="text-center text-danger py-4">
+                    Failed to load requests. Please try again.
+                </td>
+            </tr>
+        `;
+    }
+}
+ //Handles form submission
+async function handleFormSubmit(form) {
+    const modal = bootstrap.Modal.getInstance(form.closest('.modal'));
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
 
-        // Prepare and log form data
-        const formData = new FormData(this);
-        console.log('[SUBMIT] Form data:', Object.fromEntries(formData.entries()));
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `
+        <span class="spinner-border spinner-border-sm" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </span> Processing...
+    `;
 
-        // Submit request
-        const response = await fetch(this.action, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'X-CSRF-TOKEN': csrfToken,
-            'X-Requested-With': 'XMLHttpRequest'
-          },
-          body: formData
+    try {
+        const formData = new FormData(form);
+        const response = await fetch(form.action, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': form.querySelector('input[name="_token"]').value,
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: formData
         });
 
-        // Process response
-        const data = await response.json().catch(() => ({}));
-        console.log('[SUBMIT] Response:', { status: response.status, data });
+        const result = await response.json();
 
         if (!response.ok) {
-          // Handle validation errors (422)
-          if (response.status === 422 && data.errors) {
-            const errorMessages = Object.entries(data.errors)
-              .map(([field, errors]) => `• ${field}: ${errors.join(', ')}`)
-              .join('\n');
-            
-            alert('Please fix these errors:\n' + errorMessages);
-            return;
-          }
-          
-          throw new Error(data.message || `Request failed with status ${response.status}`);
+            throw new Error(result.message || 'Submission failed');
         }
 
-        // Success handling
-        alert('Request submitted successfully!');
-        this.reset();
-
-        // Close modal if in one
-        const modal = this.closest('.modal');
+        showAlert('success', result.message || 'Request submitted!');
+        
         if (modal) {
-          bootstrap.Modal.getInstance(modal)?.hide();
+            modal.hide();
+            form.reset();
         }
 
-        // Refresh requests table
-        if (document.getElementById('requestsModal')) {
-          await loadRequestsTable();
+        // Show the requests modal after successful submission
+        const requestsModalElement = document.getElementById('requestsModal');
+        if (requestsModalElement) {
+            const requestsModalInstance = bootstrap.Modal.getOrCreateInstance(requestsModalElement);
+            requestsModalInstance.show();
         }
 
-      } catch (error) {
-        console.error('[SUBMIT] Error:', error);
-        alert('Submission failed: ' + error.message);
-      } finally {
-        // Restore button state
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = originalText;
-        }
-      }
-    }, true); // Use capture phase
-  });
+        // Refresh the requests list
+        await loadRequests();
 
-  // Load requests table function
-  async function loadRequestsTable() {
-    console.log('[REQUESTS] Loading data...');
-    try {
-      const tbody = document.getElementById('requestsTableBody');
-      if (!tbody) return;
-
-      tbody.innerHTML = '<tr><td colspan="6" class="text-center">Loading...</td></tr>';
-
-      const response = await fetch('/my-permit-requests');
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      
-      const data = await response.json();
-      console.log('[REQUESTS] Data received:', data);
-
-      tbody.innerHTML = data.length ? '' : '<tr><td colspan="6" class="text-center">No requests</td></tr>';
-
-      data.forEach((req, index) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${index + 1}</td>
-          <td>${req.full_name || req.business_name || 'N/A'}</td>
-          <td>${req.type || 'N/A'}</td>
-          <td>${req.date || new Date().toLocaleDateString()}</td>
-          <td><span class="badge bg-${getStatusColor(req.status)}">${req.status || 'Pending'}</span></td>
-          <td><button class="btn btn-sm btn-outline-secondary">View</button></td>
-        `;
-        tbody.appendChild(row);
-      });
-
-    } catch (err) {
-      console.error('[REQUESTS] Error:', err);
-      const tbody = document.getElementById('requestsTableBody');
-      if (tbody) {
-        tbody.innerHTML = `
-          <tr><td colspan="6" class="text-center text-danger">Error loading requests</td></tr>
-        `;
-      }
+    } catch (error) {
+        console.error('Submission error:', error);
+        showAlert('danger', error.message || 'Submission failed. Please try again.');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
     }
-  }
-
-  // Status badge color helper
-  function getStatusColor(status) {
-    if (!status) return 'info';
-    switch (status.toLowerCase()) {
-      case 'approved': return 'success';
-      case 'rejected': return 'danger';
-      case 'processing': return 'warning';
-      default: return 'info';
-    }
-  }
-
-  // Initialize requests modal
-  const requestsModal = document.getElementById('requestsModal');
-  if (requestsModal) {
-    requestsModal.addEventListener('show.bs.modal', loadRequestsTable);
-  }
-
-  console.log('[MAIN] Initialization complete');
+}
+// EVENT LISTENERS
+document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        handleFormSubmit(form);
+    });
 });
+
+// Load requests when modal opens
+const requestsModal = document.getElementById('requestsModal');
+if (requestsModal) {
+    requestsModal.addEventListener('shown.bs.modal', loadRequests);
+    
+    // Cleanup on modal close
+    requestsModal.addEventListener('hidden.bs.modal', () => {
+        document.body.classList.remove('modal-open');
+        document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+    });
+}
+
+
 </script>
 </body>
 </html>

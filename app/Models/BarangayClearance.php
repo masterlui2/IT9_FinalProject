@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
-class BarangayClearanceRequest extends Model
+class BarangayClearance extends Model
 {
     protected $fillable = [
         'user_id',
@@ -15,5 +17,4 @@ class BarangayClearanceRequest extends Model
         'contact_number',
         'purpose',
         'status' // default 'pending'
-    ];
-}
+    ];}
