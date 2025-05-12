@@ -291,7 +291,22 @@ margin: 0.5rem auto;
           </div>
         </div>
       </div>
-
+<!-- Edit Request Modal -->
+<div class="modal fade" id="editRequestModal" tabindex="-1" aria-labelledby="editRequestModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="editRequestModalLabel">Edit Request</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="editRequestModalBody">
+        <!-- Content will be loaded dynamically -->
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Requests Modal -->
 <div class="modal fade" id="requestsModal" tabindex="-1" aria-labelledby="requestsModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
@@ -302,6 +317,15 @@ margin: 0.5rem auto;
         </h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <div class="input-group mb-3">
+    <span class="input-group-text bg-transparent border-end-0">
+        <i class="fas fa-search"></i>
+    </span>
+    <input type="text" id="requestsSearch" class="form-control border-start-0" placeholder="Search requests...">
+    <button class="btn btn-outline-secondary clear-search" type="button" style="display: none;">
+        <i class="fas fa-times"></i>
+    </button>
+</div>
       <div class="modal-body">
         <div class="table-responsive">
           <table class="table table-hover">
@@ -689,6 +713,7 @@ function showAlert(type, message) {
         }, 5000);
     }
 }
+
 // Show My Requests modal after submission
 const requestsModalElement = document.getElementById('requestsModal');
 if (requestsModalElement) {
@@ -716,12 +741,12 @@ async function loadRequests() {
         tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4"><div class="spinner-border" role="status"></div></td></tr>';
         
         const response = await fetch("{{ route('api.permits.index') }}", {
-    method: 'GET',
-    credentials: 'same-origin', // ✅ include cookies/session
-    headers: {
-        'Accept': 'application/json'
-    }
-});
+            method: 'GET',
+            credentials: 'same-origin', // ✅ include cookies/session
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
         
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -729,30 +754,12 @@ async function loadRequests() {
         
         const requests = await response.json();
         
+        // Store requests globally for search functionality
+        window.allRequests = requests;
+        
         // Update table
-        tbody.innerHTML = requests.length ? '' : '<tr><td colspan="7" class="text-center py-4">No requests found</td></tr>';
-        
-        requests.forEach((request, index) => {
-          tbody.innerHTML += `
-    <tr>
-        <th scope="row">${index + 1}</th>
-        <td>${request.id}</td>
-        <td>${request.type}</td>
-        <td>${request.full_name}</td>
-        <td>${new Date(request.created_at).toLocaleDateString()}</td>
-        <td><span class="badge bg-${getStatusColor(request.status)}">${request.status}</span></td>
-        <td>
-            <button class="btn btn-sm btn-outline-primary me-1">
-                <i class="bi bi-pencil-square"></i>
-            </button>
-            <button class="btn btn-sm btn-outline-danger">
-                <i class="bi bi-trash"></i>
-            </button>
-        </td>
-    </tr>
-`;
-        });
-        
+        renderRequests(requests);
+          
         // Update count badge
         countBadge.textContent = requests.length;
         
@@ -767,7 +774,66 @@ async function loadRequests() {
         `;
     }
 }
- //Handles form submission
+
+// Render requests in the table
+function renderRequests(requests) {
+    const tbody = document.getElementById('requestsTableBody');
+    tbody.innerHTML = requests.length ? '' : '<tr><td colspan="7" class="text-center py-4">No requests found</td></tr>';
+    
+    requests.forEach((request, index) => {
+        tbody.innerHTML += `
+            <tr>
+                <th scope="row">${index + 1}</th>
+                <td>${request.id}</td>
+                <td>${request.type}</td>
+                <td>${request.full_name}</td>
+                <td>${new Date(request.created_at).toLocaleDateString()}</td>
+                <td><span class="badge bg-${getStatusColor(request.status)}">${request.status}</span></td>
+                <td>
+                    <button class="btn btn-sm btn-outline-primary me-1 edit-btn" data-id="${request.id}">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger delete-btn" data-id="${request.id}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+    
+    // Attach event listeners to new buttons
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', () => openEditModal(btn.dataset.id));
+    });
+    
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            currentRequestId = btn.dataset.id;
+            confirmDelete(currentRequestId);
+        });
+    });
+}
+
+// Search functionality
+function setupSearch() {
+    const searchInput = document.getElementById('requestsSearch');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            if (!window.allRequests) return;
+            
+            const filteredRequests = window.allRequests.filter(request => 
+                request.full_name.toLowerCase().includes(searchTerm) ||
+                request.type.toLowerCase().includes(searchTerm) ||
+                request.id.toString().includes(searchTerm)
+            );
+            
+            renderRequests(filteredRequests);
+        });
+    }
+}
+ 
+//Handles form submission
 async function handleFormSubmit(form) {
     const modal = bootstrap.Modal.getInstance(form.closest('.modal'));
     const submitBtn = form.querySelector('button[type="submit"]');
@@ -823,6 +889,172 @@ async function handleFormSubmit(form) {
         submitBtn.innerHTML = originalText;
     }
 }
+// Global variable to track current request
+let currentRequestId = null;
+
+async function openEditModal(requestId) {
+    currentRequestId = requestId;
+
+    const requestsModal = bootstrap.Modal.getInstance(document.getElementById('requestsModal'));
+    if (requestsModal) requestsModal.hide();
+
+    const modalBody = document.getElementById('editRequestModalBody');
+    const editModal = new bootstrap.Modal(document.getElementById('editRequestModal'));
+
+    try {
+        const response = await fetch(`/permits/${requestId}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Authorization': `Bearer ${localStorage.getItem('auth_token') || ''}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const request = await response.json();
+
+        // ✅ Populate modal body with request info and Approve button
+        modalBody.innerHTML = `
+            <div class="mb-3">
+                <label class="form-label">Request Type</label>
+                <input type="text" class="form-control" value="${escapeHtml(request.type)}" readonly>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-control" value="${escapeHtml(request.full_name)}" readonly>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Date Requested</label>
+                    <input type="text" class="form-control" 
+                        value="${request.created_at ? new Date(request.created_at).toLocaleDateString() : 'N/A'}" 
+                        readonly>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Status</label>
+                    <input type="text" class="form-control" 
+                        value="${escapeHtml(request.status || 'Pending')}" 
+                        readonly>
+                </div>
+            </div>
+            <div class="text-end">
+                <button type="button" id="approveRequestBtn" class="btn btn-success">
+                    <i class="fas fa-check-circle me-1"></i> Approve Request
+                </button>
+            </div>
+        `;
+
+        // ✅ Show modal
+        editModal.show();
+
+        // ✅ Attach listener AFTER button is inserted
+        setTimeout(() => {
+            const approveBtn = document.getElementById('approveRequestBtn');
+            if (approveBtn) {
+                approveBtn.addEventListener('click', approveRequest);
+            }
+        }, 100);
+
+    } catch (error) {
+        console.error('Failed to load request details:', error);
+        modalBody.innerHTML = `
+            <div class="alert alert-danger">
+                <h5>Error Loading Request</h5>
+                <p>${escapeHtml(error.message)}</p>
+                <button class="btn btn-sm btn-outline-secondary mt-2" 
+                    onclick="openEditModal(${requestId})">
+                    <i class="fas fa-sync-alt me-1"></i> Retry
+                </button>
+            </div>
+        `;
+    }
+}
+
+
+// Helper function to prevent XSS
+function escapeHtml(unsafe) {
+    if (typeof unsafe !== 'string') return unsafe;
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+async function deleteRequest(requestId) {
+    if (!confirm('Are you sure you want to delete this request?')) return;
+    
+    try {
+        const response = await fetch(`/permits/${requestId}`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Authorization': `Bearer ${localStorage.getItem('auth_token') || ''}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        showAlert('success', result.message || 'Request deleted successfully');
+        await loadRequests();
+        
+    } catch (error) {
+        console.error('Delete failed:', error);
+        showAlert('danger', error.message || 'Failed to delete request');
+    }
+}
+
+async function approveRequest() {
+    if (!currentRequestId) return;
+    
+    try {
+        const notes = document.getElementById('requestNotes')?.value || '';
+        
+        const response = await fetch(`/permits/${currentRequestId}/approve`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Authorization': `Bearer ${localStorage.getItem('auth_token') || ''}`
+            },
+            body: JSON.stringify({})
+        });
+        
+        const result = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(result.message || 'Failed to approve request');
+        }
+        
+        showAlert('success', result.message || 'Request approved successfully');
+        await loadRequests();
+        
+        const editModal = bootstrap.Modal.getInstance(document.getElementById('editRequestModal'));
+        if (editModal) editModal.hide();
+        
+    } catch (error) {
+        console.error('Approve error:', error);
+        showAlert('danger', error.message || 'Failed to approve request');
+    }
+}
+
+function confirmDelete(requestId) {
+    if (confirm('Are you sure you want to delete this request?')) {
+        deleteRequest(requestId);
+    }
+}
+
 // EVENT LISTENERS
 document.querySelectorAll('form').forEach(form => {
     form.addEventListener('submit', (e) => {
@@ -834,16 +1066,34 @@ document.querySelectorAll('form').forEach(form => {
 // Load requests when modal opens
 const requestsModal = document.getElementById('requestsModal');
 if (requestsModal) {
-    requestsModal.addEventListener('shown.bs.modal', loadRequests);
+    requestsModal.addEventListener('shown.bs.modal', () => {
+        loadRequests();
+        setupSearch(); // Initialize search functionality
+    });
     
-    // Cleanup on modal close
     requestsModal.addEventListener('hidden.bs.modal', () => {
         document.body.classList.remove('modal-open');
         document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
     });
 }
 
+// Attach event listeners after DOM loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Edit buttons (will be added dynamically after loadRequests())
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.edit-btn')) {
+            openEditModal(e.target.closest('.edit-btn').dataset.id);
+        }
+        if (e.target.closest('.delete-btn')) {
+            currentRequestId = e.target.closest('.delete-btn').dataset.id;
+            confirmDelete(currentRequestId);
+        }
+    });
 
+    // Modal buttons
+    const approveBtn = document.getElementById('approveRequestBtn');
+    if (approveBtn) approveBtn.addEventListener('click', approveRequest);
+});
 </script>
 </body>
 </html>

@@ -126,7 +126,44 @@ class PermitController extends Controller
             ], 500);
         }
     }
+    public function show($id)
+    {
+        $permit = Permit::find($id);
+        
+        if (!$permit) {
+            return response()->json([
+                'message' => 'Permit not found'
+            ], 404);
+        }
+    
+        return response()->json($permit);
+    }
 
+public function approve(Request $request, $id)
+{
+    $permit = Permit::findOrFail($id);
+    
+    $permit->update([
+        'status' => 'approved',
+        'notes' => $request->notes,
+        'approved_at' => now()
+    ]);
+    
+    return response()->json([
+        'message' => 'Permit approved successfully',
+        'permit' => $permit
+    ]);
+}
+
+public function destroy($id)
+{
+    $permit = Permit::findOrFail($id);
+    $permit->delete();
+    
+    return response()->json([
+        'message' => 'Permit deleted successfully'
+    ]);
+}
     public function getClearanceRequests()
     {
         $permits = Permit::where('type', 'clearance')

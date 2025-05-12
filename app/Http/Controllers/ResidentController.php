@@ -95,20 +95,43 @@ class ResidentController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'full_name' => 'required|string|max:255',
-            'gender' => 'required|string',
-            'birthdate' => 'required|date',
-            // Add other validation rules
-        ]);
+        try {
+            $validated = $request->validate([
+                'full_name' => 'required|string|max:255',
+                'gender' => 'required|string|in:Male,Female',
+                'birthdate' => 'required|date',
+                'household_id' => 'required|exists:households,id',
+                'relationship' => 'required|string',
+                'income_source' => 'nullable|string',
+                'contact' => 'nullable|string|max:20',
+                'household_head_name' => 'required|string|max:255',
+            ]);
     
-        $resident = Resident::findOrFail($id);
-        $resident->update($validated);
+            $resident = Resident::findOrFail($id);
+            $resident->update($validated);
     
-        return response()->json([
-            'success' => true,
-            'resident' => $resident
-        ]);
+            return response()->json([
+                'success' => true,
+                'resident' => [
+                    'id' => $resident->id,
+                    'full_name' => $resident->full_name,
+                    'gender' => $resident->gender,
+                    'birthdate' => $resident->birthdate?->format('Y-m-d'),
+                    'household_id' => $resident->household_id,
+                    'income_source' => $resident->income_source,
+                    'contact' => $resident->contact,
+                    'relationship' => $resident->relationship,
+                    'household' => [
+                        'id' => $resident->household->id,
+                    ]
+                ]
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update resident: ' . $e->getMessage()
+            ], 500);
+        }
     }
     
     public function destroy($id)
