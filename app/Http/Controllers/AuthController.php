@@ -16,7 +16,6 @@ class AuthController extends Controller
 
     public function processLogin(Request $request)
     {
-        // Dummy credentials (Replace with database validation)
         $valid_id = "123";
         $valid_password = "123";
 
