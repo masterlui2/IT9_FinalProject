@@ -27,7 +27,6 @@ class AuthController extends Controller
 
         // Check credentials
         if ($request->id == $valid_id && $request->password == $valid_password) {
-            // Store session and redirect to dashboard
             session(['user_id' => $request->id]);
             return redirect()->route('dashboard');
         } else {

@@ -7,26 +7,21 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\PermitController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\IncidentController;
+use App\Http\Controllers\ResidentialStatController;
+use App\Http\Controllers\DashboardStatController;
 
+    //Stats route
+    Route::get('/residential-stats', [ResidentialStatController::class, 'getStats']);
+    Route::post('/residential-stats/increment', [ResidentialStatController::class, 'incrementStats']);
+    Route::get('/dashboard-stats', [DashboardStatController::class, 'getStats']);
+    Route::post('/dashboard-stats/increment-residential', [DashboardStatController::class, 'incrementResidential']);
     //Incidents route
     Route::resource('incidents', IncidentController::class);
     Route::get('/dashboard/incidents', [IncidentController::class, 'index'])->name('incidents.index');
     Route::post('/dashboard/incidents', [IncidentController::class, 'store'])->name('incidents.store');
     Route::delete('/incidents/{incident}', [IncidentController::class, 'destroy'])->name('incidents.destroy');
-    Route::get('/debug-incidents', function() {
-        try {
-            $data = [
-                'incidents_exists' => isset($incidents),
-                'incidents_count' => \App\Models\Incident::count(),
-                'view_path' => realpath(resource_path('views/auth/dashboard/incidents.blade.php')),
-                'config' => config('app.debug')
-            ];
-            return response()->json($data);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
-    });
-     // Permit Form Submission Routes
+
+    // Permit Form Submission Routes
     Route::prefix('permits')->group(function () {
     Route::resource('residents', ResidentController::class);
     Route::post('/permits/id/store', [PermitController::class, 'storeBarangayId'])->name('permits.id.store');

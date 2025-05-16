@@ -54,7 +54,7 @@ class PermitRequestController extends Controller
 
     // Store Residency Request
     public function storeResidency(Request $request)
-    {
+    {   //Residency validation
         $validated = $request->validate([
             'full_name' => 'required|string|max:255',
             'birthdate' => 'required|date',

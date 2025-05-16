@@ -170,6 +170,16 @@
         word-wrap: break-word;
     
     }
+    .table td, .table th {
+    padding: 0.5rem; /* Adjust padding to make rows more compact */
+    vertical-align: middle; /* Ensure content is vertically centered */
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+.table td:nth-child(3) { /* Target the Date column specifically */
+    white-space: nowrap; /* Ensure date stays on one line */
+    min-width: 150px; /* Give enough space for the date format */
+}
 </style>
 </head>
 <body class="bg-light">
@@ -192,25 +202,25 @@
         </div>
 
         <div class="card border-0 shadow-sm">
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    @if(isset($incidents) && $incidents->isEmpty())
-                        <div class="alert alert-info m-3">
-                            <i class="bi bi-info-circle-fill"></i> No incidents found in records.
-                        </div>
-                    @else
-                    <table class="table table-hover table-striped mb-0" style="table-layout: fixed; width: 100%">
-                        <thead class="table-danger">
-                            <tr>
-                                <th>ID</th>
-                                <th>Type</th>
-                                <th>Date</th>
-                                <th>Location</th>
-                                <th>Reporter</th>
-                                <th>Contact</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            @if(isset($incidents) && $incidents->isEmpty())
+                <div class="alert alert-info m-3">
+                    <i class="bi bi-info-circle-fill"></i> No incidents found in records.
+                </div>
+            @else
+            <table class="table table-hover table-striped mb-0">
+                <thead class="table-danger">
+                    <tr>
+                        <th style="width: 5%">ID</th>
+                        <th style="width: 15%">Type</th>
+                        <th style="width: 15%">Date</th>
+                        <th style="width: 15%">Location</th>
+                        <th style="width: 12%">Reporter</th>
+                        <th style="width: 12%">Contact</th>
+                        <th style="width: 10%">Status</th>
+                        <th style="width: 10%">Actions</th>
+                    </tr>
                         </thead>
                         <tbody id="incidentsTableBody">
                             <!-- Hardcoded values -->
@@ -598,12 +608,14 @@ function updateIncidentInTable(incident) {
 
 function createIncidentRow(incident) {
     const incidentDate = new Date(incident.incident_date);
-    const formattedDate = incidentDate.toLocaleString('en-US', {
+    // Use this format to ensure consistent single-line display
+    const formattedDate = incidentDate.toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric',
-        year: 'numeric',
+        year: 'numeric'
+    }) + ' ' + incidentDate.toLocaleTimeString('en-US', {
         hour: 'numeric',
-        minute: 'numeric',
+        minute: '2-digit',
         hour12: true
     });
 
@@ -614,10 +626,10 @@ function createIncidentRow(incident) {
     const newRow = document.createElement('tr');
     newRow.innerHTML = `
         <td>${incident.id}</td>
-        <td>${incident.incident_type}</td>
+        <td class="text-truncate">${incident.incident_type}</td>
         <td>${formattedDate}</td>
-        <td>${incident.location}</td>
-        <td>${incident.reporter_name}</td>
+        <td class="text-truncate">${incident.location}</td>
+        <td class="text-truncate">${incident.reporter_name}</td>
         <td>${incident.reporter_contact}</td>
         <td>
             <span class="status-badge ${statusClass}">
@@ -626,7 +638,7 @@ function createIncidentRow(incident) {
         </td>
         <td>
             <div class="dropdown">
-                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" 
+                <button class="btn btn-sm btn-outline-secondary dropdown-toggle py-0" 
                         type="button" id="dropdownMenuButton${incident.id}" 
                         data-bs-toggle="dropdown" 
                         aria-expanded="false">

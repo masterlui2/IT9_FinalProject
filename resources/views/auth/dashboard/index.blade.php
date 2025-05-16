@@ -147,61 +147,187 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
- <script>
+
+<script>
+    // Global variables
+    let dashboardStats = null;
+    
     // 1. First define the chart rendering function
-    function renderDashboardCharts() {
-        const donutConfig = (ctx, data, colors) => {
-            return new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: data.labels,
-                    datasets: [{
-                        data: data.values,
-                        backgroundColor: colors,
-                        cutout: '70%',
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    plugins: { 
-                        legend: { display: false },
-                        tooltip: { enabled: true }
+    async function renderDashboardCharts() {
+        try {
+            // Fetch all stats from server
+            const response = await fetch('/dashboard-stats');
+            
+            if (!response.ok) {
+                throw new Error(`Server returned ${response.status} status`);
+            }
+            
+            dashboardStats = await response.json();
+            console.log('Dashboard stats loaded:', dashboardStats);
+            
+            // Initialize charts
+            const initCharts = () => {
+                const charts = [
+                    { 
+                        id: 'chartPopulation', 
+                        labels: ['Male', 'Female'], 
+                        values: [dashboardStats.male_percentage, dashboardStats.female_percentage], 
+                        colors: ['#005eff', '#66b3ff'] 
                     },
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
-        };
+                    { 
+                        id: 'chartResidential', 
+                        labels: ['Occupied', 'Vacant'], 
+                        values: [dashboardStats.occupied_percentage, dashboardStats.vacant_percentage], 
+                        colors: ['#059b9a', '#2ed5da'] 
+                    },
+                    { 
+                        id: 'chartCommercial', 
+                        labels: ['Active', 'Inactive'], 
+                        values: [dashboardStats.active_percentage, dashboardStats.inactive_percentage], 
+                        colors: ['#0074e8', '#7ac6f6'] 
+                    },
+                    { 
+                        id: 'chartTickets', 
+                        labels: ['Closed', 'Open'], 
+                        values: [dashboardStats.closed_percentage, dashboardStats.open_percentage], 
+                        colors: ['#e85c00', '#ffa84c'] 
+                    }
+                ];
 
-        // Initialize charts
-        const initCharts = () => {
-            const charts = [
-                { id: 'chartPopulation', labels: ['Male', 'Female'], values: [58, 42], colors: ['#005eff', '#66b3ff'] },
-                { id: 'chartResidential', labels: ['Occupied', 'Vacant'], values: [70, 30], colors: ['#059b9a', '#2ed5da'] },
-                { id: 'chartCommercial', labels: ['Active', 'Inactive'], values: [93, 7], colors: ['#0074e8', '#7ac6f6'] },
-                { id: 'chartTickets', labels: ['Closed', 'Open'], values: [92, 8], colors: ['#e85c00', '#ffa84c'] }
-            ];
+                // Initialize all charts
+                charts.forEach(chart => {
+                    const ctx = document.getElementById(chart.id);
+                    if (ctx) {
+                        if (ctx.chart) ctx.chart.destroy();
+                        ctx.chart = new Chart(ctx, {
+                            type: 'doughnut',
+                            data: {
+                                labels: chart.labels,
+                                datasets: [{
+                                    data: chart.values,
+                                    backgroundColor: chart.colors,
+                                    cutout: '70%',
+                                    borderWidth: 0
+                                }]
+                            },
+                            options: {
+                                plugins: { 
+                                    legend: { display: false },
+                                    tooltip: { enabled: true }
+                                },
+                                responsive: true,
+                                maintainAspectRatio: false
+                            }
+                        });
+                    }
+                });
 
-            charts.forEach(chart => {
-                const ctx = document.getElementById(chart.id);
-                if (ctx) {
-                    // Destroy existing chart if it exists
-                    if (ctx.chart) ctx.chart.destroy();
-                    ctx.chart = donutConfig(ctx, chart, chart.colors);
-                }
-            });
-        };
+                // Update all displayed values
+                updateDisplayValues();
+            };
 
-        // Small delay to ensure DOM is ready
-        setTimeout(initCharts, 100);
+            // Update all UI elements with current stats
+            function updateDisplayValues() {
+                // Stat cards
+                document.getElementById('populationValue').textContent = dashboardStats.population.toLocaleString();
+                document.getElementById('residentialValue').textContent = dashboardStats.residential.toLocaleString();
+                document.getElementById('commercialValue').textContent = dashboardStats.commercial.toLocaleString();
+                document.getElementById('incidentsValue').textContent = dashboardStats.incidents.toLocaleString();
+                
+                // Chart cards
+                document.getElementById('populationChartValue').textContent = dashboardStats.population.toLocaleString();
+                document.getElementById('residentialChartValue').textContent = dashboardStats.residential.toLocaleString();
+                document.getElementById('commercialChartValue').textContent = dashboardStats.commercial.toLocaleString();
+                document.getElementById('incidentsChartValue').textContent = dashboardStats.incidents.toLocaleString();
+                
+                // Percentages
+                document.getElementById('populationPercentages').innerHTML = `
+                    <span class="d-block">${dashboardStats.male_percentage}% Male</span>
+                    <span class="d-block">${dashboardStats.female_percentage}% Female</span>
+                `;
+                document.getElementById('residentialPercentages').innerHTML = `
+                    <span class="d-block">${dashboardStats.occupied_percentage}% Occupied</span>
+                    <span class="d-block">${dashboardStats.vacant_percentage}% Vacant</span>
+                `;
+                document.getElementById('commercialPercentages').innerHTML = `
+                    <span class="d-block">${dashboardStats.active_percentage}% Active</span>
+                    <span class="d-block">${dashboardStats.inactive_percentage}% Inactive</span>
+                `;
+                document.getElementById('incidentsPercentages').innerHTML = `
+                    <span class="d-block">${dashboardStats.closed_percentage}% Closed</span>
+                    <span class="d-block">${dashboardStats.open_percentage}% Open</span>
+                `;
+            }
+
+            // Add click event to residential card
+            const residentialCard = document.getElementById('residentialCard');
+            if (residentialCard) {
+                residentialCard.style.cursor = 'pointer';
+                residentialCard.addEventListener('click', async function() {
+                    try {
+                        // Increment on server
+                        const response = await fetch('/dashboard-stats/increment-residential', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                            }
+                        });
+                        
+                        if (!response.ok) {
+                            throw new Error('Failed to increment residential count');
+                        }
+                        
+                        const updatedStats = await response.json();
+                        console.log('Updated stats:', updatedStats);
+                        
+                        // Update local values
+                        dashboardStats = updatedStats;
+                        
+                        // Update displays
+                        updateDisplayValues();
+                        
+                        // Update residential chart
+                        const ctx = document.getElementById('chartResidential');
+                        if (ctx && ctx.chart) {
+                            ctx.chart.data.datasets[0].data = [
+                                updatedStats.occupied_percentage, 
+                                updatedStats.vacant_percentage
+                            ];
+                            ctx.chart.update();
+                        }
+                        
+                        // Visual feedback
+                        this.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 200);
+                        
+                    } catch (error) {
+                        console.error('Error incrementing residential count:', error);
+                        alert('Failed to update residential count. Please try again.');
+                    }
+                });
+            }
+
+            // Initialize charts with small delay
+            setTimeout(initCharts, 100);
+            
+        } catch (error) {
+            console.error('Error rendering dashboard charts:', error);
+            $('#mainContent').append(`
+                <div class="alert alert-danger mt-3">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    Failed to load dashboard statistics: ${error.message}
+                </div>
+            `);
+        }
     }
 
-    // 2. Then define the content loading function
+    // 2. Content loading function
     function loadContent(section) {
-        // Show loading indicator
         $('#mainContent').html('<div class="text-center py-5"><i class="fas fa-spinner fa-spin fa-3x"></i><p class="mt-3">Loading...</p></div>');
 
-        // Update active button immediately
         $('.nav-button').removeClass('active');
         $(`.nav-button[onclick*="${section}"]`).addClass('active');
 
@@ -209,14 +335,12 @@
             url: `/dashboard/view/${section}`,
             type: 'GET',
             success: function(response) {
-                // Special handling for dashboard
                 if (section === 'dashboard_content') {
                     response = `<div class="dashboard-container">${response}</div>`;
                 }
                 
                 $('#mainContent').html(response);
                 
-                // Render charts if dashboard
                 if (section === 'dashboard_content') {
                     renderDashboardCharts();
                 }
@@ -235,13 +359,17 @@
 
     // 3. Initialize on page load
     $(document).ready(function() {
-        // Load dashboard by default
+        // Ensure CSRF token is available for AJAX calls
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         loadContent('dashboard_content');
-        
-        // Set first button as active
         $('.nav-button').first().addClass('active');
     });
-    </script>
+</script>
     <!-- Logout Confirmation Modal -->
 <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">

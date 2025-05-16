@@ -18,7 +18,7 @@ class ResidentController extends Controller
 
     public function store(Request $request)
     {
-        try {
+        try {   //Validation fields
             $validated = $request->validate([
                 'full_name' => 'required|string|max:255',
                 'gender' => 'required|string|in:Male,Female',

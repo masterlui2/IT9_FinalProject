@@ -5,8 +5,7 @@ use App\Http\Controllers\ResidentController;
 
 // API Routes (return JSON)
 Route::prefix('api')->middleware(['auth:sanctum'])->group(function() {
-    // Permit routes
-    Route::prefix('permits')->group(function() {
+        Route::prefix('permits')->group(function() {
         Route::get('/', [PermitController::class, 'getMyRequests'])->name('api.permits.index');
         Route::get('/{id}', [PermitController::class, 'show'])->name('api.permits.show');
         Route::put('/{id}/approve', [PermitController::class, 'approve'])->name('api.permits.approve');

@@ -14,211 +14,207 @@
         </div>
     </div>
     
-    <!-- Statistic Cards -->
-    <div class="row g-4 mt-3">  <!-- Added mt-3 class here for margin-top -->
-        <!-- Population -->
-        <div class="col-xl-3 col-md-6">
-            <div class="card stats-card card-hover-primary shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div>
-                            <div class="text-muted text-uppercase fw-bold small">Statistics</div>
-                            <div class="stat-value text-primary">11,200</div>
-                            <div class="stat-change text-success">
-                                <i class="fas fa-arrow-up trend-icon"></i>
-                                <span>5% increase</span>
-                            </div>
-                        </div>
-                        <div class="icon-circle">
-                            <i class="fas fa-chart-bar text-primary"></i>
+   <!-- Statistic Cards -->
+<div class="row g-4 mt-3">
+    <!-- Population -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card stats-card card-hover-primary shadow-sm">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="text-muted text-uppercase fw-bold small">Statistics</div>
+                        <div class="stat-value text-primary" id="populationValue">11,200</div>
+                        <div class="stat-change text-success">
+                            <i class="fas fa-arrow-up trend-icon"></i>
+                            <span>1% increase</span>
                         </div>
                     </div>
-                    <div class="progress mt-4">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 75%"></div>
-                    </div>
-                    <div class="mini-chart">
-                        <div class="chart-bar" style="height: 50%"></div>
-                        <div class="chart-bar" style="height: 65%"></div>
-                        <div class="chart-bar" style="height: 75%"></div>
-                        <div class="chart-bar" style="height: 60%"></div>
-                        <div class="chart-bar" style="height: 70%"></div>
+                    <div class="icon-circle">
+                        <i class="fas fa-chart-bar text-primary"></i>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Residential -->
-        <div class="col-xl-3 col-md-6">
-            <div class="card stats-card card-hover-success shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div>
-                            <div class="text-muted text-uppercase fw-bold small">Residential</div>
-                            <div class="stat-value text-success">2,240</div>
-                            <div class="stat-change text-success">
-                                <i class="fas fa-arrow-up trend-icon"></i>
-                                <span>7% increase</span>
-                            </div>
-                        </div>
-                        <div class="icon-circle">
-                            <i class="fas fa-house-user text-success"></i>
-                        </div>
-                    </div>
-                    <div class="progress mt-4">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 85%"></div>
-                    </div>
-                    <div class="mini-chart">
-                        <div class="chart-bar" style="height: 60%"></div>
-                        <div class="chart-bar" style="height: 75%"></div>
-                        <div class="chart-bar" style="height: 85%"></div>
-                        <div class="chart-bar" style="height: 80%"></div>
-                        <div class="chart-bar" style="height: 70%"></div>
-                    </div>
+                <div class="progress mt-4">
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: 75%"></div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Commercial -->
-        <div class="col-xl-3 col-md-6">
-            <div class="card stats-card card-hover-info shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div>
-                            <div class="text-muted text-uppercase fw-bold small">Commercial</div>
-                            <div class="stat-value text-info">3,424</div>
-                            <div class="stat-change text-success">
-                                <i class="fas fa-arrow-up trend-icon"></i>
-                                <span>3% increase</span>
-                            </div>
-                        </div>
-                        <div class="icon-circle">
-                            <i class="fas fa-store text-info"></i>
-                        </div>
-                    </div>
-                    <div class="progress mt-4">
-                        <div class="progress-bar bg-info" role="progressbar" style="width: 65%"></div>
-                    </div>
-                    <div class="mini-chart">
-                        <div class="chart-bar" style="height: 45%"></div>
-                        <div class="chart-bar" style="height: 55%"></div>
-                        <div class="chart-bar" style="height: 65%"></div>
-                        <div class="chart-bar" style="height: 50%"></div>
-                        <div class="chart-bar" style="height: 60%"></div>
-                    </div>
+                <div class="mini-chart">
+                    <div class="chart-bar" style="height: 50%"></div>
+                    <div class="chart-bar" style="height: 65%"></div>
+                    <div class="chart-bar" style="height: 75%"></div>
+                    <div class="chart-bar" style="height: 60%"></div>
+                    <div class="chart-bar" style="height: 70%"></div>
                 </div>
-            </div>
-        </div>
-<!-- Incidents -->
-<div class="col-xl-3 col-md-6">
-    <div class="card stats-card card-hover-danger shadow-sm">
-        <div class="card-body">
-            <div class="d-flex justify-content-between align-items-start">
-                <div>
-                    <div class="text-muted text-uppercase fw-bold small">Incidents</div>
-                    <div class="stat-value text-danger">97</div>
-                    <div class="stat-change text-success">
-                        <i class="fas fa-arrow-up trend-icon"></i>
-                        <span>2% increase</span>
-                    </div>
-                </div>
-                <div class="icon-circle">
-                    <i class="fas fa-exclamation-triangle text-danger"></i>
-                </div>
-            </div>
-            <div class="progress mt-4">
-                <div class="progress-bar bg-danger" role="progressbar" style="width: 55%"></div>
-            </div>
-            <div class="mini-chart">
-                <div class="chart-bar" style="height: 35%"></div>
-                <div class="chart-bar" style="height: 45%"></div>
-                <div class="chart-bar" style="height: 55%"></div>
-                <div class="chart-bar" style="height: 40%"></div>
-                <div class="chart-bar" style="height: 50%"></div>
             </div>
         </div>
     </div>
-</div>
 
-    <!-- Donut Charts -->
-    <div class="row g-4 mt-4">
-        <!-- Population Chart -->
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0 p-3">
-                <div class="text-center">
-                    <p class="fw-bold mb-1">11,200</p>
-                    <small class="text-muted">Population</small>
-                </div>
-                <div class="d-flex justify-content-center mt-3">
-                    <div style="width: 120px; height: 120px;">
-                        <canvas id="chartPopulation"></canvas>
+    <!-- Residential -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card stats-card card-hover-success shadow-sm" id="residentialCard">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="text-muted text-uppercase fw-bold small">Residential</div>
+                        <div class="stat-value text-success" id="residentialValue">2,240</div>
+                        <div class="stat-change text-success">
+                            <i class="fas fa-arrow-up trend-icon"></i>
+                            <span>1% increase</span>
+                        </div>
+                    </div>
+                    <div class="icon-circle">
+                        <i class="fas fa-house-user text-success"></i>
                     </div>
                 </div>
-                <div class="mt-3 text-center">
-                    <span class="d-block">58% Male</span>
-                    <span class="d-block">42% Female</span>
+                <div class="progress mt-4">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 85%"></div>
+                </div>
+                <div class="mini-chart">
+                    <div class="chart-bar" style="height: 60%"></div>
+                    <div class="chart-bar" style="height: 75%"></div>
+                    <div class="chart-bar" style="height: 85%"></div>
+                    <div class="chart-bar" style="height: 80%"></div>
+                    <div class="chart-bar" style="height: 70%"></div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Residential Chart -->
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0 p-3">
-                <div class="text-center">
-                    <p class="fw-bold mb-1">2,240</p>
-                    <small class="text-muted">Residential Areas</small>
-                </div>
-                <div class="d-flex justify-content-center mt-3">
-                    <div style="width: 120px; height: 120px;">
-                        <canvas id="chartResidential"></canvas>
+    <!-- Commercial -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card stats-card card-hover-info shadow-sm">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="text-muted text-uppercase fw-bold small">Commercial</div>
+                        <div class="stat-value text-info" id="commercialValue">3,424</div>
+                        <div class="stat-change text-success">
+                            <i class="fas fa-arrow-up trend-icon"></i>
+                            <span>1% increase</span>
+                        </div>
+                    </div>
+                    <div class="icon-circle">
+                        <i class="fas fa-store text-info"></i>
                     </div>
                 </div>
-                <div class="mt-3 text-center">
-                    <span class="d-block">70% Occupied</span>
-                    <span class="d-block">30% Vacant</span>
+                <div class="progress mt-4">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 65%"></div>
+                </div>
+                <div class="mini-chart">
+                    <div class="chart-bar" style="height: 45%"></div>
+                    <div class="chart-bar" style="height: 55%"></div>
+                    <div class="chart-bar" style="height: 65%"></div>
+                    <div class="chart-bar" style="height: 50%"></div>
+                    <div class="chart-bar" style="height: 60%"></div>
                 </div>
             </div>
         </div>
-
-        <!-- Commercial Chart -->
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0 p-3">
-                <div class="text-center">
-                    <p class="fw-bold mb-1">3,424</p>
-                    <small class="text-muted">Establishments</small>
-                </div>
-                <div class="d-flex justify-content-center mt-3">
-                    <div style="width: 120px; height: 120px;">
-                        <canvas id="chartCommercial"></canvas>
+    </div>
+    
+    <!-- Incidents -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card stats-card card-hover-danger shadow-sm">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="text-muted text-uppercase fw-bold small">Incidents</div>
+                        <div class="stat-value text-danger" id="incidentsValue">97</div>
+                        <div class="stat-change text-success">
+                            <i class="fas fa-arrow-up trend-icon"></i>
+                            <span>1% increase</span>
+                        </div>
+                    </div>
+                    <div class="icon-circle">
+                        <i class="fas fa-exclamation-triangle text-danger"></i>
                     </div>
                 </div>
-                <div class="mt-3 text-center">
-                    <span class="d-block">93% Active</span>
-                    <span class="d-block">7% Inactive</span>
+                <div class="progress mt-4">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 55%"></div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Tickets Chart -->
-        <div class="col-md-3">
-            <div class="card shadow-sm border-0 p-3">
-                <div class="text-center">
-                    <p class="fw-bold mb-1">97</p>
-                    <small class="text-muted">Total Incidents</small>
-                </div>
-                <div class="d-flex justify-content-center mt-3">
-                    <div style="width: 120px; height: 120px;">
-                        <canvas id="chartTickets"></canvas>
-                    </div>
-                </div>
-                <div class="mt-3 text-center">
-                    <span class="d-block">92% Closed</span>
-                    <span class="d-block">8% Open</span>
+                <div class="mini-chart">
+                    <div class="chart-bar" style="height: 35%"></div>
+                    <div class="chart-bar" style="height: 45%"></div>
+                    <div class="chart-bar" style="height: 55%"></div>
+                    <div class="chart-bar" style="height: 40%"></div>
+                    <div class="chart-bar" style="height: 50%"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Donut Charts -->
+<div class="row g-4 mt-4">
+    <!-- Population Chart -->
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0 p-3">
+            <div class="text-center">
+                <p class="fw-bold mb-1" id="populationChartValue">11,200</p>
+                <small class="text-muted">Population</small>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <div style="width: 120px; height: 120px;">
+                    <canvas id="chartPopulation"></canvas>
+                </div>
+            </div>
+            <div class="mt-3 text-center" id="populationPercentages">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Residential Chart -->
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0 p-3">
+            <div class="text-center">
+                <p class="fw-bold mb-1" id="residentialChartValue">2,240</p>
+                <small class="text-muted">Residential Areas</small>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <div style="width: 120px; height: 120px;">
+                    <canvas id="chartResidential"></canvas>
+                </div>
+            </div>
+            <div class="mt-3 text-center" id="residentialPercentages">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Commercial Chart -->
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0 p-3">
+            <div class="text-center">
+                <p class="fw-bold mb-1" id="commercialChartValue">3,424</p>
+                <small class="text-muted">Establishments</small>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <div style="width: 120px; height: 120px;">
+                    <canvas id="chartCommercial"></canvas>
+                </div>
+            </div>
+            <div class="mt-3 text-center" id="commercialPercentages">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Tickets Chart -->
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0 p-3">
+            <div class="text-center">
+                <p class="fw-bold mb-1" id="incidentsChartValue">97</p>
+                <small class="text-muted">Total Incidents</small>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <div style="width: 120px; height: 120px;">
+                    <canvas id="chartTickets"></canvas>
+                </div>
+            </div>
+            <div class="mt-3 text-center" id="incidentsPercentages">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+</div>
 <style>
 .dashboard-container {
     height: 90vh;
@@ -369,129 +365,3 @@
     margin-bottom: 15px;
 }
 </style>
-
-<script>
-    
-    // Wait for DOM to be fully loaded before initializing charts
-    document.addEventListener('DOMContentLoaded', function() {
-        const donutConfig = (ctx, data, colors) => {
-            return new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: data.labels,
-                    datasets: [{
-                        data: data.values,
-                        backgroundColor: colors,
-                        borderWidth: 0,
-                        cutout: '70%'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            enabled: true
-                        }
-                    }
-                }
-            });
-        };
-
-        // Initialize all charts
-        const initCharts = () => {
-            // Population Chart
-            const populationCtx = document.getElementById('chartPopulation');
-            if (populationCtx) {
-                new Chart(populationCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Male', 'Female'],
-                        datasets: [{
-                            data: [58, 42],
-                            backgroundColor: ['#005eff', '#66b3ff'],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        cutout: '70%',
-                        plugins: {
-                            legend: { display: false }
-                        }
-                    }
-                });
-            }
-
-            // Residential Chart
-            const residentialCtx = document.getElementById('chartResidential');
-            if (residentialCtx) {
-                new Chart(residentialCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Occupied', 'Vacant'],
-                        datasets: [{
-                            data: [70, 30],
-                            backgroundColor: ['#059b9a', '#2ed5da'],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        cutout: '70%',
-                        plugins: {
-                            legend: { display: false }
-                        }
-                    }
-                });
-            }
-
-            // Commercial Chart
-            const commercialCtx = document.getElementById('chartCommercial');
-            if (commercialCtx) {
-                new Chart(commercialCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Active', 'Inactive'],
-                        datasets: [{
-                            data: [93, 7],
-                            backgroundColor: ['#0074e8', '#7ac6f6'],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        cutout: '70%',
-                        plugins: {
-                            legend: { display: false }
-                        }
-                    }
-                });
-            }
-
-            // Tickets Chart
-            const ticketsCtx = document.getElementById('chartTickets');
-            if (ticketsCtx) {
-                new Chart(ticketsCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Closed', 'Open'],
-                        datasets: [{
-                            data: [92, 8],
-                            backgroundColor: ['#e85c00', '#ffa84c'],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        cutout: '70%',
-                        plugins: {
-                            legend: { display: false }
-                        }
-                    }
-                });
-            }
-        };
-
-        initCharts();
-    });
-</script>

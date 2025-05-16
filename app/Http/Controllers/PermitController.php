@@ -58,7 +58,6 @@ class PermitController extends Controller
             'updated_at' => now()
         ];
 
-        // 🔥 No user_id included
         $id = DatabaseHelper::quickInsert('permits', $permitData);
 
         return response()->json([
